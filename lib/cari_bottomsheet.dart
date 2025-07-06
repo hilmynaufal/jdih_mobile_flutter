@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
+import 'package:jdih_mobile_flutter/models/jdih_models/kategori_dokumen_model.dart';
 import 'package:jdih_mobile_flutter/views/masuk_pin_page.dart';
 import 'package:jdih_mobile_flutter/views/register_page.dart';
 import 'package:jdih_mobile_flutter/views/simple_page.dart';
@@ -11,6 +13,7 @@ class CariBottomsheet extends StatelessWidget {
   CariBottomsheet({super.key});
 
   final cariController = TextEditingController();
+  final dokumenController = Get.find<DokumenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +88,7 @@ class CariBottomsheet extends StatelessWidget {
                     SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        "Masukkan Username anda yang memang sudah terdaftar di website PPID",
+                        "Masukan nama peraturan produk hukum yang ingin anda cari",
                         style: GoogleFonts.poppins(
                           // fontWeight: FontWeight.w600,
                           fontSize: 12,
@@ -108,7 +111,7 @@ class CariBottomsheet extends StatelessWidget {
                     SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        "Masukkan Password yang sudah anda buat saat mendaftar",
+                        "Pilih Filter Kategori produ hukum yang ingin anda cari (kosongkan jika ingin menampilkan semua kategori)",
                         style: GoogleFonts.poppins(
                           // fontWeight: FontWeight.w600,
                           fontSize: 12,
@@ -131,7 +134,7 @@ class CariBottomsheet extends StatelessWidget {
                     SizedBox(width: 8),
                     Flexible(
                       child: Text(
-                        "Pilih layanan yang anda butuhkan",
+                        "Klik tombol cari di paling bawah",
                         style: GoogleFonts.poppins(
                           // fontWeight: FontWeight.w600,
                           fontSize: 12,
@@ -205,6 +208,95 @@ class CariBottomsheet extends StatelessWidget {
           //   ),
           // ),
           // SizedBox(height: 8),
+          // Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Filter Kategori",
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Obx(() {
+                  final cariKategori = [
+                    KategoriDokumenModel(
+                      jenisNama: "Tampil Semua",
+                      jenisKeterangan: "",
+                    ),
+                    ...dokumenController.kategori,
+                  ];
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 6,
+                      mainAxisSpacing: 6,
+                      childAspectRatio: 4,
+                    ),
+                    itemCount: cariKategori.length,
+                    itemBuilder: (context, index) {
+                      final category = cariKategori[index];
+                      return InkWell(
+                        onTap: () {
+                          // Get.back();
+                          dokumenController.selectedCariCategory.value =
+                              category.jenisKeterangan ?? "";
+                        },
+                        child: Obx(
+                          () => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color:
+                                    dokumenController
+                                                .selectedCariCategory
+                                                .value ==
+                                            category.jenisKeterangan
+                                        ? theme.primaryColor
+                                        : Colors.grey.shade300,
+                                width:
+                                    dokumenController
+                                                .selectedCariCategory
+                                                .value ==
+                                            category.jenisKeterangan
+                                        ? 2
+                                        : 1,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                category.jenisNama ?? '',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      dokumenController
+                                                  .selectedCariCategory
+                                                  .value ==
+                                              category.jenisKeterangan
+                                          ? theme.primaryColor
+                                          : Colors.black,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ],
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -244,7 +336,7 @@ class CariBottomsheet extends StatelessWidget {
                 Get.to(
                   () => SimplePage(
                     title: cariController.text,
-                    jenisKeterangan: '',
+                    jenisKeterangan: dokumenController.selectedCariCategory.value,
                     keyword: cariController.text,
                   ),
                 );

@@ -24,6 +24,9 @@ class DokumenController extends GetxController {
   final test = RxList<DetailDokumenModel>();
   final kategori = RxList<KategoriDokumenModel>();
 
+  //cari
+  final selectedCariCategory = "".obs;
+
   Future<void> getTestJdih(String keyword, String kategori) async {
     isLoading.value = true;
     final response = await server.getRequest(

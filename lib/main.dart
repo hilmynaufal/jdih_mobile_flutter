@@ -11,7 +11,9 @@ import 'package:jdih_mobile_flutter/controllers/artikel_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
+import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/shared_pref_controller.dart';
+import 'package:jdih_mobile_flutter/utils/riwayat_service.dart';
 import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/splash_screen.dart';
 import 'package:jdih_mobile_flutter/utils/http_override.dart';
@@ -20,6 +22,9 @@ import 'package:jdih_mobile_flutter/http_server.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive
+  await RiwayatService.initialize();
 
   // Plugin must be initialized before using
   if (!kIsWeb) {
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
   final artikelController = Get.put(ArtikelController());
   final sharedPref = Get.put(SharedPrefController());
   final loginController = Get.put(LoginController());
+  final riwayatController = Get.put(RiwayatController());
   final controller = Get.put(BottomNavController());
 
   // This widget is the root of your application.
@@ -91,48 +97,48 @@ class Main extends StatelessWidget {
               ),
             ),
           ),
-          GetX<SharedPrefs>(
-            builder: (sharedPref) {
-              if (sharedPref.idUser.value != null) {
-                return const SizedBox();
-              }
-              return Column(
-                children: [
-                  const Divider(),
-                  Container(
-                    height: 60,
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 4,
-                    ),
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.bottomSheet(
-                          const LoginBottomsheet(),
-                          shape: const LinearBorder(),
-                          backgroundColor: Colors.white,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        "Daftar & Masuk",
-                        style: GoogleFonts.poppins(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+          // GetX<SharedPrefs>(
+          //   builder: (sharedPref) {
+          //     if (sharedPref.idUser.value != null) {
+          //       return const SizedBox();
+          //     }
+          //     return Column(
+          //       children: [
+          //         const Divider(),
+          //         Container(
+          //           height: 60,
+          //           width: double.infinity,
+          //           padding: const EdgeInsets.symmetric(
+          //             horizontal: 16,
+          //             vertical: 4,
+          //           ),
+          //           decoration: const BoxDecoration(color: Colors.white),
+          //           child: ElevatedButton(
+          //             onPressed: () {
+          //               Get.bottomSheet(
+          //                 const LoginBottomsheet(),
+          //                 shape: const LinearBorder(),
+          //                 backgroundColor: Colors.white,
+          //               );
+          //             },
+          //             style: ElevatedButton.styleFrom(
+          //               shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(10),
+          //               ),
+          //             ),
+          //             child: Text(
+          //               "Daftar & Masuk",
+          //               style: GoogleFonts.poppins(
+          //                 fontSize: 20,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     );
+          //   },
+          // ),
         ],
       ),
       bottomNavigationBar: Obx(
@@ -149,22 +155,9 @@ class Main extends StatelessWidget {
           unselectedIconTheme: const IconThemeData(color: Colors.grey),
           selectedIconTheme: IconThemeData(color: theme.primaryColor),
           onTap: (value) {
-            if (value == 4 && Get.find<SharedPrefs>().idUser.value == null) {
-              Get.bottomSheet(
-                const LoginBottomsheet(),
-                shape: const LinearBorder(),
-                backgroundColor: Colors.white,
-              );
-            } else if (value == 2 &&
-                Get.find<SharedPrefs>().idUser.value == null) {
-              Get.bottomSheet(
-                const LoginBottomsheet(),
-                shape: const LinearBorder(),
-                backgroundColor: Colors.white,
-              );
-            } else {
+            
               controller.selectedIndex.value = value;
-            }
+            
           },
           backgroundColor: Colors.white,
         ),

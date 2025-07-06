@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
 import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/detail_dokumen_model.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
@@ -14,11 +15,18 @@ class DetailDokumenPage extends StatelessWidget {
   DetailDokumenPage({super.key, required this.dokumen});
 
   final DetailDokumenModel dokumen;
+  final riwayatController = Get.find<RiwayatController>();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    
+    // Tambahkan ke riwayat ketika halaman dibuka
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _tambahKeRiwayat();
+    });
+    
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -419,5 +427,19 @@ class DetailDokumenPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _tambahKeRiwayat() {
+    if (dokumen.id != null) {
+      riwayatController.tambahRiwayat(
+        id: dokumen.id!,
+        judul: dokumen.namaDokumen ?? dokumen.judul ?? 'Dokumen',
+        nomor: dokumen.no ?? '-',
+        tahun: dokumen.tahun ?? '-',
+        fileUrl: dokumen.pathPeraturan,
+        kategori: dokumen.jenisNama,
+        instansi: dokumen.subjek,
+      );
+    }
   }
 }

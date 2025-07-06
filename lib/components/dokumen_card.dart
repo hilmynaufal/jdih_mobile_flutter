@@ -36,7 +36,19 @@ class DokumenCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FaIcon(FontAwesomeIcons.filePdf, size: 80),
+          Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  FontAwesomeIcons.filePdf,
+                  color: Colors.blue.shade600,
+                  size: 40,
+                ),
+              ),
           SizedBox(width: 10),
           Expanded(
             child: Column(
