@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../models/riwayat_dokumen_model.dart';
+import '../models/jdih_models/detail_dokumen_model.dart';
 import '../utils/riwayat_service.dart';
 
 class RiwayatController extends GetxController {
@@ -25,8 +26,19 @@ class RiwayatController extends GetxController {
     }
   }
 
-  // Menambahkan dokumen ke riwayat
-  Future<void> tambahRiwayat({
+  // Menambahkan dokumen ke riwayat dari DetailDokumenModel
+  Future<void> tambahRiwayatFromDetail(DetailDokumenModel detail) async {
+    try {
+      final riwayat = RiwayatDokumenModel.fromDetail(detail, DateTime.now());
+      await RiwayatService.tambahRiwayat(riwayat);
+      await loadRiwayat(); // Reload riwayat setelah menambah
+    } catch (e) {
+      print('Error menambah riwayat: $e');
+    }
+  }
+
+  // Menambahkan dokumen ke riwayat (opsional: jika ingin manual field)
+  Future<void> tambahRiwayatManual({
     required String id,
     required String judul,
     required String nomor,
@@ -39,14 +51,13 @@ class RiwayatController extends GetxController {
       final riwayat = RiwayatDokumenModel(
         id: id,
         judul: judul,
-        nomor: nomor,
+        no: nomor,
         tahun: tahun,
-        fileUrl: fileUrl,
+        pathPeraturan: fileUrl,
+        jenisNama: kategori,
+        subjek: instansi,
         tanggalDilihat: DateTime.now(),
-        kategori: kategori,
-        instansi: instansi,
       );
-
       await RiwayatService.tambahRiwayat(riwayat);
       await loadRiwayat(); // Reload riwayat setelah menambah
     } catch (e) {

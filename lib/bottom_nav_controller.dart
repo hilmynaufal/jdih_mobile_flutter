@@ -12,7 +12,8 @@ class BottomNavController extends GetxController {
   final selectedIndex = 0.obs;
   final bodyWidget = [
     HomePage(),
-    ArtikelPage(),
+    // ArtikelPage(),
+    ComingSoonPage(),
     RiwayatPage(title: "Riwayat Dokumen"),
     CariDokumenPage(title: "Cari Dokumen"),
     ProfileScreen(),

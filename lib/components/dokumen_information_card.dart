@@ -77,10 +77,20 @@ class DokumenInformationCard extends StatelessWidget {
     final newUrl = "${Get.find<HttpServer>().apiUrl}/${url}";
 
     final status = await Permission.manageExternalStorage.request();
+    final statusNotification = await Permission.notification.request();
 
     log(newUrl);
 
-    if (!status.isGranted) {
+    if (!statusNotification.isGranted) {
+      Get.showSnackbar(
+        SnackbarUtils.errorSnackbar(
+          text: "Izin notifikasi diperlukan untuk menampilkan status download.",
+        ),
+      );
+      return;
+    }
+
+    if (status.isGranted) {
       try {
         final now = DateTime.now();
         final taskId = await FlutterDownloader.enqueue(
@@ -93,8 +103,8 @@ class DokumenInformationCard extends StatelessWidget {
         );
         Get.showSnackbar(
           SnackbarUtils.successSnackbar(
-            text: "Download Started",
-            title: 'Success',
+            text: "Download dimulai",
+            title: 'Sukses',
           ),
         );
         print('Download ID: $taskId');

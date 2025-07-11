@@ -55,7 +55,7 @@ class RiwayatCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    riwayat.kategori!,
+                    riwayat.jenisNama!,
                     style: textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -70,7 +70,7 @@ class RiwayatCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      riwayat.tahun.toUpperCase(),
+                      riwayat.tahun!.toUpperCase(),
                       style: textTheme.bodySmall!.copyWith(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,

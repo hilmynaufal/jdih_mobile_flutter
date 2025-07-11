@@ -17,11 +17,9 @@ class RiwayatService {
   static Future<void> tambahRiwayat(RiwayatDokumenModel riwayat) async {
     try {
       // Hapus riwayat lama jika sudah ada dokumen dengan ID yang sama
-      await hapusRiwayatById(riwayat.id);
-      
+      await hapusRiwayatById(riwayat.id ?? "");
       // Tambahkan riwayat baru
       await _box.add(riwayat);
-      
       // Batasi jumlah riwayat
       await _batasiJumlahRiwayat();
     } catch (e) {
