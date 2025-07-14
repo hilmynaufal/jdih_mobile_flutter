@@ -97,48 +97,6 @@ class Main extends StatelessWidget {
               ),
             ),
           ),
-          // GetX<SharedPrefs>(
-          //   builder: (sharedPref) {
-          //     if (sharedPref.idUser.value != null) {
-          //       return const SizedBox();
-          //     }
-          //     return Column(
-          //       children: [
-          //         const Divider(),
-          //         Container(
-          //           height: 60,
-          //           width: double.infinity,
-          //           padding: const EdgeInsets.symmetric(
-          //             horizontal: 16,
-          //             vertical: 4,
-          //           ),
-          //           decoration: const BoxDecoration(color: Colors.white),
-          //           child: ElevatedButton(
-          //             onPressed: () {
-          //               Get.bottomSheet(
-          //                 const LoginBottomsheet(),
-          //                 shape: const LinearBorder(),
-          //                 backgroundColor: Colors.white,
-          //               );
-          //             },
-          //             style: ElevatedButton.styleFrom(
-          //               shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(10),
-          //               ),
-          //             ),
-          //             child: Text(
-          //               "Daftar & Masuk",
-          //               style: GoogleFonts.poppins(
-          //                 fontSize: 20,
-          //                 fontWeight: FontWeight.bold,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     );
-          //   },
-          // ),
         ],
       ),
       bottomNavigationBar: Obx(
@@ -155,9 +113,7 @@ class Main extends StatelessWidget {
           unselectedIconTheme: const IconThemeData(color: Colors.grey),
           selectedIconTheme: IconThemeData(color: theme.primaryColor),
           onTap: (value) {
-            
-              controller.selectedIndex.value = value;
-            
+            controller.selectedIndex.value = value;
           },
           backgroundColor: Colors.white,
         ),

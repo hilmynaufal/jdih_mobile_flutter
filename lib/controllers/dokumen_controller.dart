@@ -7,6 +7,7 @@ import 'package:jdih_mobile_flutter/http_server.dart';
 import 'package:jdih_mobile_flutter/models/category_model.dart';
 import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/detail_dokumen_model.dart';
+import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/kategori_dokumen_model.dart';
 import 'package:jdih_mobile_flutter/models/response_model.dart';
 import 'package:jdih_mobile_flutter/utils/dummy.dart';
@@ -23,6 +24,7 @@ class DokumenController extends GetxController {
   //jdih
   final test = RxList<DetailDokumenModel>();
   final kategori = RxList<KategoriDokumenModel>();
+  final halamanStatis = RxList<HalamanStatisModel>();
 
   //cari
   final selectedCariCategory = "".obs;
@@ -47,6 +49,27 @@ class DokumenController extends GetxController {
 
     test.value = categoryList;
     // log(test.length.toString());
+    isLoading.value = false;
+  }
+
+  Future<void> getHalamanStatis() async {
+    isLoading.value = true;
+    final response = await server.getRequest('api/halaman_statis');
+    final jsonData = jsonDecode(response);
+
+    List<HalamanStatisModel> halamanStatisList;
+    if (response.isEmpty) {
+      halamanStatisList = [];
+    } else {
+      halamanStatisList = List<HalamanStatisModel>.from(
+        jsonData.map((x) => HalamanStatisModel.fromMap(x)),
+      );
+    }
+
+    // Tidak ada variabel untuk menyimpan data halaman statis, jadi tidak ada yang diupdate.
+    // Jika diperlukan, tambah variabel untuk menyimpan data ini dan update nilai seperti di bawah ini:
+    halamanStatis.value = halamanStatisList;
+
     isLoading.value = false;
   }
 

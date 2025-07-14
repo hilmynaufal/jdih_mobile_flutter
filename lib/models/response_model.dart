@@ -5,6 +5,7 @@ import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
 import 'package:jdih_mobile_flutter/models/education_model.dart';
 import 'package:jdih_mobile_flutter/models/instansi_model.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/detail_dokumen_model.dart';
+import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart';
 import 'package:jdih_mobile_flutter/models/kecamatan_model.dart';
 import 'package:jdih_mobile_flutter/models/login_model.dart';
 import 'package:jdih_mobile_flutter/models/riwayat_layanan_model.dart';
@@ -18,6 +19,19 @@ class ResponseModel {
   dynamic data;
 
   ResponseModel({this.status, this.message, this.pageTitle, this.data});
+
+  factory ResponseModel.fromHalamanStatis(Map<String, dynamic> json) =>
+      ResponseModel(
+        status: json["status"],
+        message: json["message"],
+        pageTitle: json["pageTitle"],
+        data:
+            json["data"] == null
+                ? []
+                : List<HalamanStatisModel>.from(
+                  json["data"]!.map((x) => HalamanStatisModel.fromMap(x)),
+                ),
+      );
 
   factory ResponseModel.fromArtikel(Map<String, dynamic> json) => ResponseModel(
     status: json["status"],
