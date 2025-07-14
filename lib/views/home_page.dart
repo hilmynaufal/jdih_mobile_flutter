@@ -23,34 +23,12 @@ class HomePage extends StatelessWidget {
 
   final controller = Get.find<HomeController>();
 
-  final List<Function()> onTapMenu = [
-    () {
-      //on tap menu jenis dokumen
+  // Jumlah onTapMenu harus sama dengan jumlah titles (10 item)
+  final List<Function()> onTapMenu = List.generate(10, (index) {
+    return () {
       Get.to(() => ComingSoonPage());
-    },
-    () {
-      //on tap menu PPID utama
-      Get.to(() => ComingSoonPage());
-    },
-    () {
-      //on tap menu PPID utama
-      Get.to(() => ComingSoonPage());
-    },
-    () {
-      //on tap menu Visi & Misi
-      // Get.to(
-      //     () => DetailArtikelPage.fromStatic(artikel: Constant.visiMisiStatic));
-      Get.to(() => ComingSoonPage());
-    },
-    () {
-      //on tap menu Alur
-      Get.to(() => ComingSoonPage());
-    },
-    () {
-      //on tap menu Instansi
-      Get.to(() => InstansiPage());
-    },
-  ];
+    };
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +229,7 @@ class HomePage extends StatelessWidget {
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 4),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 6,
+                  itemCount: titles.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(left: 4, right: 4),
@@ -324,24 +302,27 @@ class HomePage extends StatelessWidget {
                   child: ListView.builder(
                     physics: PageScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount:
-                        controller
-                            .beritaTerbaru
-                            .length, // Sesuaikan dengan jumlah item yang ingin ditampilkan
+                    itemCount: controller.beritaTerbaru.isEmpty
+                        ? 2 // tampilkan 2 skeleton jika data kosong
+                        : controller.beritaTerbaru.length,
                     itemBuilder: (context, index) {
-                      final curentArtikel = controller.beritaTerbaru.elementAt(
-                        index,
-                      );
+                      final isSkeleton = controller.beritaTerbaru.isEmpty;
+                      final curentArtikel = isSkeleton
+                          ? null
+                          : controller.beritaTerbaru.elementAt(index);
+
                       return InkWell(
-                        onTap: () {
-                          Get.to(
-                            () => DetailArtikelPage(
-                              artikel: controller.beritaTerbaru.elementAt(
-                                index,
-                              ),
-                            ),
-                          );
-                        },
+                        onTap: isSkeleton
+                            ? null
+                            : () {
+                                Get.to(
+                                  () => DetailArtikelPage(
+                                    artikel: controller.beritaTerbaru.elementAt(
+                                      index,
+                                    ),
+                                  ),
+                                );
+                              },
                         child: SizedBox(
                           width: screenWidth,
                           child: Padding(
@@ -356,10 +337,14 @@ class HomePage extends StatelessWidget {
                                     color: theme.primaryColor,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: Image.network(
-                                    curentArtikel.imageArticle!,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: isSkeleton
+                                      ? Container(
+                                          color: Colors.grey[300],
+                                        )
+                                      : Image.network(
+                                          curentArtikel!.imageArticle!,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -381,24 +366,51 @@ class HomePage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            curentArtikel.namaArtikel ?? "",
-                                            style: GoogleFonts.poppins(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          Text(
-                                            DateTimeParse.getTanggalToDisplay(
-                                              curentArtikel.createdDate ?? "",
-                                            ),
-                                            style: GoogleFonts.poppins(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                          ),
+                                          isSkeleton
+                                              ? Container(
+                                                  width: 120,
+                                                  height: 18,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[300],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                )
+                                              : Text(
+                                                  curentArtikel!.namaArtikel ??
+                                                      "",
+                                                  style: GoogleFonts.poppins(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                          SizedBox(height: 4),
+                                          isSkeleton
+                                              ? Container(
+                                                  width: 80,
+                                                  height: 12,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[300],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                )
+                                              : Text(
+                                                  DateTimeParse
+                                                      .getTanggalToDisplay(
+                                                    curentArtikel!
+                                                            .createdDate ??
+                                                        "",
+                                                  ),
+                                                  style: GoogleFonts.poppins(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
                                         ],
                                       ),
                                     ),
@@ -466,7 +478,7 @@ class HomePage extends StatelessWidget {
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 12),
       physics: NeverScrollableScrollPhysics(),
-      itemCount: 6,
+      itemCount: titlesExpanded.length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Padding(
@@ -532,38 +544,54 @@ class HomePage extends StatelessWidget {
   }
 
   List<String> titles = [
-    'Jenis\nDokumen',
-    'PPID Utama',
-    'Informasi',
-    'Visi & Misi',
-    'Alur',
-    'Instansi',
+    'Dasar Hukum',
+    'Visi dan Misi',
+    'Struktur Organisasi',
+    'Tupoksi',
+    'Susunan Tim JDIH',
+    'SOP',
+    'Berita',
+    'Artikel',
+    'Kegiatan',
+    'FAQ',
   ];
 
   List<String> titlesExpanded = [
-    'Jenis Dokumen',
-    'PPID Utama',
-    'Informasi',
-    'Visi & Misi',
-    'Alur',
-    'Instansi',
+    'Dasar Hukum',
+    'Visi dan Misi',
+    'Struktur Organisasi',
+    'Tupoksi',
+    'Susunan Tim JDIH',
+    'SOP',
+    'Berita',
+    'Artikel',
+    'Kegiatan',
+    'FAQ',
   ];
 
   List<String> subtitleExpanded = [
-    'Cari dokumen yang diurutkan berdasarkan filter Jenis Informasi',
-    'Cari dokumen yang diurutkan berdasarkan filter Jenis PPID',
-    'Cari dokumen yang diurutkan berdasarkan filter Jenis Informasi',
-    'Baca Visi & Misi dari aplikasi PPID kami',
-    'Baca Visi & Misi dari aplikasi PPID kami',
-    'Cari berbagai informasi dokumen, video dan berita di berbagai instansi',
+    'Dasar hukum yang menjadi landasan dalam pengelolaan JDIH Kabupaten Bandung',
+    'Visi dan misi JDIH Kabupaten Bandung',
+    'Struktur organisasi JDIH Kabupaten Bandung',
+    'Tupoksi JDIH Kabupaten Bandung',
+    'Susunan tim JDIH Kabupaten Bandung',
+    'SOP JDIH Kabupaten Bandung',
+    'Berita terbaru dari JDIH Kabupaten Bandung',
+    'Artikel terbaru dari JDIH Kabupaten Bandung',
+    'Kegiatan terbaru dari JDIH Kabupaten Bandung',
+    'FAQ JDIH Kabupaten Bandung',
   ];
 
   List<IconData> icons = [
-    Icons.description,
-    Icons.home,
-    Icons.info,
-    Icons.visibility,
-    Icons.route,
-    Icons.business,
+    Icons.gavel, // Dasar Hukum
+    Icons.visibility, // Visi dan Misi
+    Icons.account_tree, // Struktur Organisasi
+    Icons.assignment_ind, // Tupoksi
+    Icons.group, // Susunan Tim JDIH
+    Icons.rule, // SOP
+    Icons.newspaper, // Berita
+    Icons.article, // Artikel
+    Icons.event, // Kegiatan
+    Icons.help_outline, // FAQ
   ];
 }

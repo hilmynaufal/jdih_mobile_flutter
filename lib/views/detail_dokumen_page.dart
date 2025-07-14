@@ -431,15 +431,7 @@ class DetailDokumenPage extends StatelessWidget {
 
   void _tambahKeRiwayat() {
     if (dokumen.id != null) {
-      riwayatController.tambahRiwayat(
-        id: dokumen.id!,
-        judul: dokumen.namaDokumen ?? dokumen.judul ?? 'Dokumen',
-        nomor: dokumen.no ?? '-',
-        tahun: dokumen.tahun ?? '-',
-        fileUrl: dokumen.pathPeraturan,
-        kategori: dokumen.jenisNama,
-        instansi: dokumen.subjek,
-      );
+      riwayatController.tambahRiwayatFromDetail(dokumen);
     }
   }
 }

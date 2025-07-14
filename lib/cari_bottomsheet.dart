@@ -253,7 +253,7 @@ class CariBottomsheet extends StatelessWidget {
                           () => Container(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(6),
                               border: Border.all(
                                 color:
                                     dokumenController

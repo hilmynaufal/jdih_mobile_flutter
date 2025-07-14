@@ -13,6 +13,8 @@ import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/shared_pref_controller.dart';
+import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page.dart';
+import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page_static.dart';
 import 'package:jdih_mobile_flutter/utils/riwayat_service.dart';
 import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/splash_screen.dart';
@@ -32,7 +34,7 @@ Future<void> main() async {
       debug:
           true, // optional: set to false to disable printing logs to console (default: true)
       ignoreSsl:
-          false, // option: set to false to disable working with http links (default: false)
+          true, // option: set to false to disable working with http links (default: false)
     );
   }
 
@@ -60,16 +62,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'PPID Kabupaten Bandung',
+      title: 'JDIH Kabupaten Bandung',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF00686C)),
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       // home: Main(),
-      initialRoute: "/splash",
+      initialRoute: "/kebijakan-privasi",
       getPages: [
         GetPage(name: "/splash", page: () => SplashScreen()),
+        GetPage(name: "/kebijakan-privasi", page: () => KebijakanPrivasiPageStatic()),
         GetPage(name: '/', page: () => Main()),
       ],
     );
