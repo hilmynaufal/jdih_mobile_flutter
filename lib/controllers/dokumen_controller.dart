@@ -29,10 +29,15 @@ class DokumenController extends GetxController {
   //cari
   final selectedCariCategory = "".obs;
 
-  Future<void> getTestJdih(String keyword, String kategori) async {
+  Future<void> getTestJdih(
+    String keyword,
+    String kategori,
+    String tahun,
+    String no,
+  ) async {
     isLoading.value = true;
     final response = await server.getRequest(
-      'Api/search?keyword=$keyword&kategori=$kategori',
+      'Api/search?keyword=$keyword&kategori=$kategori&tahun=$tahun&nomor=$no',
     );
     final jsonData = jsonDecode(response);
 
@@ -54,16 +59,16 @@ class DokumenController extends GetxController {
 
   Future<void> getHalamanStatis() async {
     isLoading.value = true;
-    final response = await server.getRequest('api/halaman_statis');
+    final response = await server.getRequest('api/Tampil_hukum/halamanstatis');
     final jsonData = jsonDecode(response);
 
     List<HalamanStatisModel> halamanStatisList;
     if (response.isEmpty) {
       halamanStatisList = [];
     } else {
-      halamanStatisList = List<HalamanStatisModel>.from(
-        jsonData.map((x) => HalamanStatisModel.fromMap(x)),
-      );
+      halamanStatisList =
+          (ResponseModel.fromHalamanStatis(jsonData).data)
+              as List<HalamanStatisModel>;
     }
 
     // Tidak ada variabel untuk menyimpan data halaman statis, jadi tidak ada yang diupdate.

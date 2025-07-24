@@ -156,10 +156,11 @@ class CariDokumenPage extends StatelessWidget {
                     child: InkWell(
                       onTap:
                           () => Get.bottomSheet(
-                            CariBottomsheet(),
+                            SingleChildScrollView(child: CariBottomsheet()),
+                            ignoreSafeArea: false,
                             shape: const LinearBorder(),
-                            // isScrollControlled: true,
-                            // enableDrag: true,
+                            isScrollControlled: true,
+                            enableDrag: true,
                             backgroundColor: Colors.white,
                           ),
                       child: TextField(

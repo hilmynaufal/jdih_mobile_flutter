@@ -16,17 +16,22 @@ class SimplePage extends StatelessWidget {
     required this.title,
     required this.jenisKeterangan,
     required this.keyword,
+    this.tahun = "",
+    this.no = "",
+    // this.tahun,
+    // this.no,
   });
 
   final controller = Get.find<DokumenController>();
   final String title, keyword, jenisKeterangan;
+  String tahun, no;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    controller.getTestJdih(keyword, jenisKeterangan);
+    controller.getTestJdih(keyword, jenisKeterangan, tahun, no);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -54,7 +59,7 @@ class SimplePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Obx(
               () => Text(
-                "Ditemukan: ${controller.test.length} dokumen",
+                "Ditemukan: ${controller.test.length} dokumen.\nKategori: ${jenisKeterangan.isEmpty ? '-' : jenisKeterangan}\nTahun: ${tahun.isEmpty ? '-' : tahun}\nNomor: ${no.isEmpty ? '-' : no}",
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontStyle: FontStyle.italic,
@@ -63,6 +68,7 @@ class SimplePage extends StatelessWidget {
               ),
             ),
           ),
+
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -214,7 +220,12 @@ class SimplePage extends StatelessWidget {
                               ),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  controller.getTestJdih('', jenisKeterangan);
+                                  controller.getTestJdih(
+                                    keyword,
+                                    jenisKeterangan,
+                                    tahun,
+                                    no,
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,

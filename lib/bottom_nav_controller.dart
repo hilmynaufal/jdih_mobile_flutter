@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/views/artikel_page.dart';
+import 'package:jdih_mobile_flutter/views/berita_page.dart';
 import 'package:jdih_mobile_flutter/views/cari_dokumen_page.dart';
 import 'package:jdih_mobile_flutter/views/coming_soon_page.dart';
 import 'package:jdih_mobile_flutter/views/home_page.dart';
@@ -13,10 +14,9 @@ class BottomNavController extends GetxController {
   final bodyWidget = [
     HomePage(),
     // ArtikelPage(),
-    ComingSoonPage(),
-    RiwayatPage(title: "Riwayat Dokumen"),
+    BeritaPage(),
     CariDokumenPage(title: "Cari Dokumen"),
-    ProfileScreen(),
+    RiwayatPage(title: "Riwayat Dokumen"),
   ];
 
   final bottomNavItem = [
@@ -30,19 +30,15 @@ class BottomNavController extends GetxController {
       label: 'Artikel',
       backgroundColor: Colors.white,
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.history),
-      label: 'Riwayat',
-      backgroundColor: Colors.white,
-    ),
+
     BottomNavigationBarItem(
       icon: Icon(Icons.file_copy),
       label: 'Cari',
       backgroundColor: Colors.white,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.login),
-      label: 'Masuk',
+      icon: Icon(Icons.history),
+      label: 'Riwayat',
       backgroundColor: Colors.white,
     ),
   ];
