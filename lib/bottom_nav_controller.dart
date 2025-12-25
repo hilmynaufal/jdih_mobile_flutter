@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/views/artikel_page.dart';
 import 'package:jdih_mobile_flutter/views/berita_page.dart';
+import 'package:jdih_mobile_flutter/views/bookmark_page.dart';
 import 'package:jdih_mobile_flutter/views/cari_dokumen_page.dart';
 import 'package:jdih_mobile_flutter/views/coming_soon_page.dart';
 import 'package:jdih_mobile_flutter/views/home_page.dart';
@@ -16,6 +17,7 @@ class BottomNavController extends GetxController {
     // ArtikelPage(),
     BeritaPage(),
     CariDokumenPage(title: "Cari Dokumen"),
+    BookmarkPage(title: "Bookmark"),
     RiwayatPage(title: "Riwayat Dokumen"),
   ];
 
@@ -34,6 +36,11 @@ class BottomNavController extends GetxController {
     BottomNavigationBarItem(
       icon: Icon(Icons.file_copy),
       label: 'Cari',
+      backgroundColor: Colors.white,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.bookmark),
+      label: 'Bookmark',
       backgroundColor: Colors.white,
     ),
     BottomNavigationBarItem(

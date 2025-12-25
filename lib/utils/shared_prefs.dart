@@ -95,31 +95,6 @@ class SharedPrefs extends GetxController {
   //   // this.authToken.value = authToken;
   // }
 
-  @override
-  onInit() async {
-    super.onInit();
-
-    // final url = await getUrl();
-    // if (url != null) {
-    //   Get.find<HttpServer>().url.value = url;
-    // }
-
-    // authToken.value = await getAuthToken();
-    nama.value = await getNama();
-    // namaKecamatan.value = await getNamaKecamatan();
-    // namaDesa.value = await getNamaDesa();
-    // nik.value = await getNik();
-    // this.url.value = await getUrl();
-    // urlDesa.value = await getUrl();
-    idUser.value = await getIdPend();
-    // isLoginSementara.value = await getLoginSementara();
-
-    //for model user
-    modelUser.value = UserModel.fromJson(
-      jsonDecode(await getModelUser() ?? ""),
-    );
-  }
-
   Future<String?> getNik() async {
     final editor = await SharedPreferences.getInstance();
     return editor.getString("nik");

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
 
 class HttpServer extends GetxController {
-  final apiUrl = "https://jdihdprd.bandungkab.go.id/".obs;
+  final apiUrl = "https://jdih.bandungkab.go.id/".obs;
   // final apiTest = 0.obs;
 
   Future<void> getApiUrl() async {

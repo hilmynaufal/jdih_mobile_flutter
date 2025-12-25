@@ -1,4 +1,4 @@
-package com.example.jdih_mobile_flutter
+package com.diskominfo.jdih_mobile_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

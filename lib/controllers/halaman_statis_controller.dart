@@ -14,6 +14,7 @@ import '../http_server.dart';
 
 class HalamanStatisController extends GetxController {
   final filePath = RxnString();
+  final fileType = RxnString(); // 'pdf', 'image', atau 'unknown'
 
   Future<void> prepareDokumen({
     required void Function(String message) onError,
@@ -50,9 +51,19 @@ class HalamanStatisController extends GetxController {
     File file = File("${dir.path}/${model.gambar!}");
     File urlFile = await file.writeAsBytes(data.bodyBytes);
 
+    // Deteksi tipe file berdasarkan ekstensi
+    final extension = model.gambar!.toLowerCase().split('.').last;
+    if (extension == 'pdf') {
+      fileType.value = 'pdf';
+    } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].contains(extension)) {
+      fileType.value = 'image';
+    } else {
+      fileType.value = 'unknown';
+    }
+
     // Get.back();
     filePath.value = urlFile.path;
-    log(filePath.value ?? "");
+    log('File path: ${filePath.value}, Type: ${fileType.value}');
     // onResponse(urlFile.path);
     // log(newUrl ?? "");
   }

@@ -1,12 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:jdih_mobile_flutter/controllers/halaman_statis_controller.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
-import 'package:jdih_mobile_flutter/views/pdf_view_page.dart';
+import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
+import 'package:jdih_mobile_flutter/http_server.dart';
 
 class HalamanStatisInformationCard extends StatelessWidget {
   HalamanStatisInformationCard({
@@ -15,9 +17,58 @@ class HalamanStatisInformationCard extends StatelessWidget {
     required this.textTheme,
   });
 
-  final controller = Get.find<HalamanStatisController>();
   final HalamanStatisModel model;
   final TextTheme textTheme;
+
+  Future<void> downloadFile(String url) async {
+    final newUrl = "${Get.find<HttpServer>().apiUrl}asset/foto_banner/$url";
+
+    // Request permission untuk flutter_downloader
+    final status = await Permission.manageExternalStorage.request();
+    final statusNotification = await Permission.notification.request();
+
+    log(newUrl);
+
+    if (!statusNotification.isGranted) {
+      Get.showSnackbar(
+        SnackbarUtils.errorSnackbar(
+          text: "Izin notifikasi diperlukan untuk menampilkan status download.",
+        ),
+      );
+      return;
+    }
+
+    log(status.toString());
+
+    if (true) {
+      try {
+        final now = DateTime.now();
+        final taskId = await FlutterDownloader.enqueue(
+          url: newUrl,
+          savedDir: "/storage/emulated/0/Download",
+          fileName: "${model.judul}_${now.millisecondsSinceEpoch}.pdf",
+          saveInPublicStorage: true,
+          showNotification: true,
+          openFileFromNotification: true,
+        );
+        Get.showSnackbar(
+          SnackbarUtils.successSnackbar(
+            text: "Download dimulai",
+            title: 'Sukses',
+          ),
+        );
+        log('Download ID: $taskId');
+      } catch (e) {
+        Get.showSnackbar(SnackbarUtils.errorSnackbar(text: e.toString()));
+      }
+    } else {
+      Get.showSnackbar(
+        SnackbarUtils.errorSnackbar(
+          text: "Izin penyimpanan diperlukan untuk mengunduh file.",
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +124,8 @@ class HalamanStatisInformationCard extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            // Tambahkan logika untuk melihat dokumen
-
-                            controller.downloadFile(
-                              model.gambar!,
-                              "/storage/emulated/0/Download",
-                            );
+                            // Tambahkan logika untuk download dokumen
+                            downloadFile(model.gambar!);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,

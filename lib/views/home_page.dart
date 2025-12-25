@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/components/bertita_slider_widget.dart';
 import 'package:jdih_mobile_flutter/components/bidang_widget.dart';
+import 'package:jdih_mobile_flutter/components/hukum_populer_widget.dart';
+import 'package:jdih_mobile_flutter/components/hukum_terbaru_widget.dart';
+import 'package:jdih_mobile_flutter/components/visitor_statistics_widget.dart';
 import 'package:jdih_mobile_flutter/views/header_widget.dart';
 import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
 import 'package:jdih_mobile_flutter/jumlah_widget.dart';
@@ -120,6 +123,9 @@ class HomePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
+            VisitorStatisticsWidget(),
+            SizedBox(height: 8),
+
             Container(
               margin: EdgeInsets.symmetric(horizontal: 4),
               decoration: BoxDecoration(
@@ -175,6 +181,10 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 8),
+            HukumTerbaruWidget(),
+            SizedBox(height: 8),
+            HukumPopulerWidget(),
             SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
