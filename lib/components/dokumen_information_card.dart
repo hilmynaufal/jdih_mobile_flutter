@@ -52,6 +52,8 @@ class DokumenInformationCard extends StatelessWidget {
 
     final newUrl = "${Get.find<HttpServer>().apiUrl}/${dokumen.pathPeraturan}";
 
+    log("newUrl: $newUrl");
+
     final data = await http
         .get(Uri.parse(newUrl))
         .timeout(

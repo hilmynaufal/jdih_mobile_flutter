@@ -37,11 +37,16 @@ class DokumenController extends GetxController {
   ) async {
     isLoading.value = true;
     final response = await server.getRequest(
-      'Api/search?keyword=$keyword&kategori=$kategori&tahun=$tahun&nomor=$no',
+      'api/Tampil_hukum/search?keyword=$keyword&tahun=$tahun&kategori=1&nomor=$no',
     );
-    final jsonData = jsonDecode(response);
 
-    // log(response);
+    log("keyword: $keyword");
+    log("tahun: $tahun");
+    log("kategori: $kategori");
+    log("no: $no");
+
+    log("response: $response");
+    final jsonData = jsonDecode(response);
 
     List<DetailDokumenModel> categoryList;
     if (response.isEmpty) {

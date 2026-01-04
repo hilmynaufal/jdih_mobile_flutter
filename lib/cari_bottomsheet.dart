@@ -432,7 +432,7 @@ class CariBottomsheet extends StatelessWidget {
                 Get.to(
                   () => SimplePage(
                     title: cariController.text,
-                    jenisKeterangan:
+                    jenisId:
                         dokumenController.selectedCariCategory.value,
                     tahun: cariTahunController.text,
                     no: cariNoController.text,

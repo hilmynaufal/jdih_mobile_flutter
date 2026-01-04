@@ -176,7 +176,7 @@ class CariDokumenPage extends StatelessWidget {
                           Get.to(
                             () => SimplePage(
                               title: "Cari: $value",
-                              jenisKeterangan: '',
+                              jenisId: '',
                               keyword: value,
                             ),
                           );

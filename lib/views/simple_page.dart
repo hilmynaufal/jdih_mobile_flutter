@@ -14,7 +14,7 @@ class SimplePage extends StatelessWidget {
   SimplePage({
     super.key,
     required this.title,
-    required this.jenisKeterangan,
+    required this.jenisId,
     required this.keyword,
     this.tahun = "",
     this.no = "",
@@ -23,7 +23,7 @@ class SimplePage extends StatelessWidget {
   });
 
   final controller = Get.find<DokumenController>();
-  final String title, keyword, jenisKeterangan;
+  final String title, keyword, jenisId;
   String tahun, no;
 
   @override
@@ -31,7 +31,7 @@ class SimplePage extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    controller.getTestJdih(keyword, jenisKeterangan, tahun, no);
+    controller.getTestJdih(keyword, jenisId, tahun, no);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -59,7 +59,7 @@ class SimplePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Obx(
               () => Text(
-                "Ditemukan: ${controller.test.length} dokumen.\nKategori: ${jenisKeterangan.isEmpty ? '-' : jenisKeterangan}\nTahun: ${tahun.isEmpty ? '-' : tahun}\nNomor: ${no.isEmpty ? '-' : no}",
+                "Ditemukan: ${controller.test.length} dokumen.\nKategori: ${jenisId.isEmpty ? '-' : jenisId}\nTahun: ${tahun.isEmpty ? '-' : tahun}\nNomor: ${no.isEmpty ? '-' : no}",
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontStyle: FontStyle.italic,
@@ -222,7 +222,7 @@ class SimplePage extends StatelessWidget {
                                 onPressed: () {
                                   controller.getTestJdih(
                                     keyword,
-                                    jenisKeterangan,
+                                    jenisId,
                                     tahun,
                                     no,
                                   );

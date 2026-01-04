@@ -55,7 +55,7 @@ class BidangWidget extends StatelessWidget {
             Get.to(
               () => SimplePage(
                 title: judul[index],
-                jenisKeterangan: '',
+                jenisId: '',
                 keyword: judul[index],
               ),
             );

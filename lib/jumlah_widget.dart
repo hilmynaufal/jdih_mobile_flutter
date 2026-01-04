@@ -40,7 +40,7 @@ class JumlahWidget extends StatelessWidget {
                 () => Get.to(
                   () => SimplePage(
                     title: item.jenisNama ?? "",
-                    jenisKeterangan: item.jenisKeterangan ?? "",
+                    jenisId: item.jenisId ?? "",
                     keyword: '',
                   ),
                 ),
@@ -110,7 +110,7 @@ class JumlahWidget extends StatelessWidget {
                   () => Get.to(
                     () => SimplePage(
                       title: item.jenisNama ?? "",
-                      jenisKeterangan: item.jenisKeterangan ?? "",
+                      jenisId: item.jenisId ?? "",
                       keyword: '',
                     ),
                   ),

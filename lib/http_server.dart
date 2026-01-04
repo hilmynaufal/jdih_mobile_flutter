@@ -6,8 +6,18 @@ import 'package:http/http.dart' as http;
 import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
 
 class HttpServer extends GetxController {
-  final apiUrl = "https://jdihdprd.bandungkab.go.id/".obs;
+  final apiUrl = "https://jdih.bandungkab.go.id/".obs;
   // final apiTest = 0.obs;
+
+  // Basic Auth credentials
+  final String _username = "admin";
+  final String _password = "password_rahasia543";
+
+  // Helper method untuk generate Basic Auth header
+  String _getBasicAuthHeader() {
+    final credentials = base64Encode(utf8.encode('$_username:$_password'));
+    return 'Basic $credentials';
+  }
 
   Future<void> getApiUrl() async {
     // final response = await http.get(
@@ -38,7 +48,10 @@ class HttpServer extends GetxController {
   Future<String> postRequest(String subdomain, Map<String, String> body) async {
     final response = await http.post(
       Uri.parse("${apiUrl.value}$subdomain"),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': _getBasicAuthHeader(),
+      },
       body: jsonEncode(body),
     );
 
@@ -53,7 +66,10 @@ class HttpServer extends GetxController {
     // log("KONZ");
     final response = await http.get(
       Uri.parse("${apiUrl.value}$subdomain"),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': _getBasicAuthHeader(),
+      },
     );
 
     // log("KONZ");
@@ -74,6 +90,7 @@ class HttpServer extends GetxController {
       Uri.parse("${apiUrl.value}$subdomain"),
     );
 
+    request.headers['Authorization'] = _getBasicAuthHeader();
     request.fields.addAll(fields);
 
     final response = await request.send();
