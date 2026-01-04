@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:jdih_mobile_flutter/controllers/bookmark_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
 import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/detail_dokumen_model.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/utils/dummy.dart';
+import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
 
 import '../components/dokumen_information_card.dart';
 
@@ -16,22 +18,41 @@ class DetailDokumenPage extends StatelessWidget {
 
   final DetailDokumenModel dokumen;
   final riwayatController = Get.find<RiwayatController>();
+  final bookmarkController = Get.find<BookmarkController>();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    
+
     // Tambahkan ke riwayat ketika halaman dibuka
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _tambahKeRiwayat();
     });
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         forceMaterialTransparency: true,
         backgroundColor: Colors.white,
+        actions: [
+          Obx(() {
+            final isBookmarked = bookmarkController.isDokumenDibookmark(
+              dokumen.id ?? "",
+            );
+            return IconButton(
+              onPressed: () => _toggleBookmark(),
+              icon: Icon(
+                isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                color: isBookmarked ? Colors.amber.shade700 : Colors.grey,
+              ),
+              tooltip:
+                  isBookmarked
+                      ? 'Hapus dari bookmark'
+                      : 'Tambahkan ke bookmark',
+            );
+          }),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -432,6 +453,30 @@ class DetailDokumenPage extends StatelessWidget {
   void _tambahKeRiwayat() {
     if (dokumen.id != null) {
       riwayatController.tambahRiwayatFromDetail(dokumen);
+    }
+  }
+
+  void _toggleBookmark() async {
+    if (dokumen.id != null) {
+      final isBookmarked = bookmarkController.isDokumenDibookmark(dokumen.id!);
+      await bookmarkController.toggleBookmark(dokumen);
+
+      // Tampilkan snackbar feedback
+      if (isBookmarked) {
+        Get.showSnackbar(
+          SnackbarUtils.successSnackbar(
+            text: "Dokumen dihapus dari bookmark",
+            title: "Bookmark",
+          ),
+        );
+      } else {
+        Get.showSnackbar(
+          SnackbarUtils.successSnackbar(
+            text: "Dokumen ditambahkan ke bookmark",
+            title: "Bookmark",
+          ),
+        );
+      }
     }
   }
 }

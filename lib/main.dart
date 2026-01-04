@@ -9,15 +9,19 @@ import 'package:intl/date_symbol_data_file.dart';
 import 'package:jdih_mobile_flutter/bottom_nav_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/artikel_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/berita_controller.dart';
+import 'package:jdih_mobile_flutter/controllers/bookmark_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/shared_pref_controller.dart';
+import 'package:jdih_mobile_flutter/controllers/offline_controller.dart';
 import 'package:jdih_mobile_flutter/splash_screen_simple.dart';
 import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page.dart';
 import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page_static.dart';
+import 'package:jdih_mobile_flutter/utils/bookmark_service.dart';
 import 'package:jdih_mobile_flutter/utils/riwayat_service.dart';
+import 'package:jdih_mobile_flutter/utils/offline_service.dart';
 import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/splash_screen.dart';
 import 'package:jdih_mobile_flutter/utils/http_override.dart';
@@ -29,6 +33,8 @@ Future<void> main() async {
 
   // Initialize Hive
   await RiwayatService.initialize();
+  await BookmarkService.initialize();
+  await OfflineService.initialize();
 
   // Plugin must be initialized before using
   if (!kIsWeb) {
@@ -58,6 +64,8 @@ class MyApp extends StatelessWidget {
   final sharedPref = Get.put(SharedPrefController());
   final loginController = Get.put(LoginController());
   final riwayatController = Get.put(RiwayatController());
+  final bookmarkController = Get.put(BookmarkController());
+  final offlineController = Get.put(OfflineController());
   final beritaController = Get.put(BeritaController());
   final controller = Get.put(BottomNavController());
 

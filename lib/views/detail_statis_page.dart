@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -12,6 +14,7 @@ import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/utils/dummy.dart';
+import 'package:photo_view/photo_view.dart';
 
 import '../components/dokumen_information_card.dart';
 
@@ -104,18 +107,74 @@ class DetailStatisPage extends StatelessWidget {
                   if (controller.filePath.value == null) {
                     return SizedBox(child: CircularProgressIndicator());
                   }
-                  return Container(
-                    height: 400,
-                    child: PDFView(
-                      filePath: controller.filePath.value ?? "",
-                      fitPolicy: FitPolicy.WIDTH,
-                      // autoSpacing: true,
-                      enableSwipe: true,
-                      pageSnap: true,
-                      swipeHorizontal: true,
-                      nightMode: false,
-                    ),
-                  );
+
+                  // Tampilkan preview berdasarkan tipe file
+                  final fileType = controller.fileType.value;
+
+                  if (fileType == 'pdf') {
+                    // Preview PDF
+                    return Container(
+                      height: 400,
+                      child: PDFView(
+                        filePath: controller.filePath.value ?? "",
+                        fitPolicy: FitPolicy.WIDTH,
+                        enableSwipe: true,
+                        pageSnap: true,
+                        swipeHorizontal: true,
+                        nightMode: false,
+                      ),
+                    );
+                  } else if (fileType == 'image') {
+                    // Preview Gambar dengan zoom
+                    return Container(
+                      height: 400,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: PhotoView(
+                          imageProvider: FileImage(File(controller.filePath.value!)),
+                          minScale: PhotoViewComputedScale.contained,
+                          maxScale: PhotoViewComputedScale.covered * 2,
+                          backgroundDecoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    // Format tidak didukung
+                    return Container(
+                      height: 400,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.error_outline,
+                              size: 64,
+                              color: Colors.grey.shade400,
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              'Format file tidak didukung',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
                 }),
               ),
               SizedBox(height: 16),
