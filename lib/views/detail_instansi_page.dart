@@ -10,7 +10,6 @@ import 'package:jdih_mobile_flutter/controllers/detail_instansi_controller.dart'
 import 'package:jdih_mobile_flutter/controllers/instansi_controller.dart';
 import 'package:jdih_mobile_flutter/models/instansi_model.dart';
 import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class DetailInstansiPage extends StatefulWidget {
   DetailInstansiPage({super.key, required this.instansi});

@@ -8,7 +8,6 @@ import 'package:jdih_mobile_flutter/models/artikel_model.dart';
 import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_artikel_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class ArtikelCard extends StatelessWidget {
   const ArtikelCard({
@@ -44,10 +43,7 @@ class ArtikelCard extends StatelessWidget {
                       ) ??
                       "",
                   loadingBuilder: (context, child, loadingProgress) {
-                    return Skeletonizer(
-                      enabled: loadingProgress != null,
-                      child: child,
-                    );
+                    return child;
                   },
                   fit: BoxFit.cover,
                 ),

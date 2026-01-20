@@ -10,7 +10,6 @@ import 'package:jdih_mobile_flutter/models/jdih_models/berita_model.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_artikel_page.dart';
 import 'package:jdih_mobile_flutter/views/detail_berita_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class BeritaCard extends StatelessWidget {
   const BeritaCard({super.key, required this.berita, required this.textTheme});
@@ -38,10 +37,7 @@ class BeritaCard extends StatelessWidget {
                 child: Image.network(
                   berita.gambar ?? "",
                   loadingBuilder: (context, child, loadingProgress) {
-                    return Skeletonizer(
-                      enabled: loadingProgress != null,
-                      child: child,
-                    );
+                    return child;
                   },
                   fit: BoxFit.cover,
                 ),

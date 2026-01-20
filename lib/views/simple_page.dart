@@ -6,7 +6,6 @@ import 'package:jdih_mobile_flutter/category_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../components/dokumen_card.dart';
 
@@ -170,43 +169,37 @@ class SimplePage extends StatelessWidget {
                   // ),
                   SizedBox(height: 16),
                   Obx(
-                    () => Skeletonizer(
-                      enabled: controller.test.isEmpty,
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        // padding: EdgeInsets.symmetric(horizontal: 32),
-                        itemCount: controller.test.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.to(
-                                    () => DetailDokumenPage(
-                                      dokumen: controller.test.elementAt(index),
-                                    ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
+                    () => ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      // padding: EdgeInsets.symmetric(horizontal: 32),
+                      itemCount: controller.test.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.to(
+                                  () => DetailDokumenPage(
+                                    dokumen: controller.test.elementAt(index),
                                   ),
-                                  child: DokumenCard(
-                                    dokumen: controller.test[index],
-                                    textTheme: textTheme,
-                                    // type: jenisStatistik,
-                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: DokumenCard(
+                                  dokumen: controller.test[index],
+                                  textTheme: textTheme,
+                                  // type: jenisStatistik,
                                 ),
                               ),
-                              Divider(
-                                thickness: 6,
-                                color: Colors.grey.shade300,
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                            ),
+                            Divider(thickness: 6, color: Colors.grey.shade300),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: 16),

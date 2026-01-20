@@ -11,7 +11,6 @@ import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
 import 'package:jdih_mobile_flutter/jumlah_widget.dart';
 import 'package:jdih_mobile_flutter/utils/shared_prefs.dart';
 import 'package:jdih_mobile_flutter/views/edit_profile_screen.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {

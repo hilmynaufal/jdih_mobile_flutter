@@ -7,7 +7,6 @@ import 'package:jdih_mobile_flutter/controllers/instansi_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/layanan_controller.dart';
 import 'package:jdih_mobile_flutter/models/riwayat_layanan_model.dart';
 import 'package:jdih_mobile_flutter/views/detail_instansi_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class RiwayatLayananPage extends StatelessWidget {
   RiwayatLayananPage({super.key});
@@ -45,27 +44,22 @@ class RiwayatLayananPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Obx(
-                  () => Skeletonizer(
-                    enabled: controller.layanan.isEmpty,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      // padding: EdgeInsets.symmetric(horizontal: 32),
-                      itemCount: controller.layanan.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            // Get.to(() => DetailDokumenPage(
-                            //       dokumen:
-                            //           controller.artikels.elementAt(index),
-                            //     ));
-                          },
-                          child: LayananCard(
-                            layanan: controller.layanan[index],
-                          ),
-                        );
-                      },
-                    ),
+                  () => ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    // padding: EdgeInsets.symmetric(horizontal: 32),
+                    itemCount: controller.layanan.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          // Get.to(() => DetailDokumenPage(
+                          //       dokumen:
+                          //           controller.artikels.elementAt(index),
+                          //     ));
+                        },
+                        child: LayananCard(layanan: controller.layanan[index]),
+                      );
+                    },
                   ),
                 ),
                 SizedBox(height: 16),

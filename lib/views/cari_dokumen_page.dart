@@ -10,7 +10,6 @@ import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
 import 'package:jdih_mobile_flutter/views/simple_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../components/dokumen_card.dart';
 

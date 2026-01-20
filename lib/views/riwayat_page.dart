@@ -11,7 +11,6 @@ import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
 import 'package:jdih_mobile_flutter/views/simple_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../components/dokumen_card.dart';
 import '../components/riwayat_card.dart';
@@ -66,11 +65,11 @@ class RiwayatPage extends StatelessWidget {
                 if (riwayatController.isLoading.value) {
                   return _buildLoadingState();
                 }
-                
+
                 if (riwayatController.riwayatList.isEmpty) {
                   return _buildEmptyState();
                 }
-                
+
                 return _buildRiwayatList();
               }),
             ),
@@ -85,15 +84,12 @@ class RiwayatPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       itemCount: 5,
       itemBuilder: (context, index) {
-        return Skeletonizer(
-          enabled: true,
-          child: Card(
-            margin: const EdgeInsets.only(bottom: 8),
-            child: ListTile(
-              leading: CircleAvatar(),
-              title: Text('Loading...'),
-              subtitle: Text('Loading...'),
-            ),
+        return Card(
+          margin: const EdgeInsets.only(bottom: 8),
+          child: ListTile(
+            leading: CircleAvatar(),
+            title: Text('Loading...'),
+            subtitle: Text('Loading...'),
           ),
         );
       },
@@ -105,11 +101,7 @@ class RiwayatPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            FontAwesomeIcons.history,
-            size: 64,
-            color: Colors.grey.shade400,
-          ),
+          Icon(FontAwesomeIcons.history, size: 64, color: Colors.grey.shade400),
           const SizedBox(height: 16),
           Text(
             'Belum ada riwayat',
@@ -192,7 +184,7 @@ class RiwayatPage extends StatelessWidget {
       namaDokumen: riwayat.namaDokumen,
       judul: riwayat.judul,
     );
-    
+
     // Navigate to detail dokumen page
     Get.to(() => DetailDokumenPage(dokumen: detailDokumen));
   }
@@ -201,12 +193,11 @@ class RiwayatPage extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         title: Text('Hapus Riwayat'),
-        content: Text('Apakah Anda yakin ingin menghapus dokumen ini dari riwayat?'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus dokumen ini dari riwayat?',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Batal'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Batal')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -223,12 +214,11 @@ class RiwayatPage extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         title: Text('Hapus Semua Riwayat'),
-        content: Text('Apakah Anda yakin ingin menghapus semua riwayat dokumen?'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus semua riwayat dokumen?',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Batal'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Batal')),
           TextButton(
             onPressed: () {
               Get.back();
