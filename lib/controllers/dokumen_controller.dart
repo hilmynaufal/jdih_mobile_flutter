@@ -37,7 +37,7 @@ class DokumenController extends GetxController {
   ) async {
     isLoading.value = true;
     final response = await server.getRequest(
-      'api/Tampil_hukum/search?keyword=$keyword&tahun=$tahun&kategori=1&nomor=$no',
+      'api/Tampil_hukum/search?keyword=$keyword&tahun=$tahun&kategori=$kategori&nomor=$no',
     );
 
     log("keyword: $keyword");
