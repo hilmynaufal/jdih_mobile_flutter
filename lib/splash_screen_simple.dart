@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/controllers/shared_pref_controller.dart';
 import 'package:jdih_mobile_flutter/http_server.dart';
-import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page.dart';
+
 import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page_static.dart';
 
 class SplashScreenSimple extends StatefulWidget {
@@ -37,14 +37,14 @@ class _SplashScreenState extends State<SplashScreenSimple> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(child: Container(color: Color(0xFF045464))),
+          Positioned.fill(child: Container(color: Color(0xFFFFFFFf))),
           SafeArea(
             child: Center(
               child: AnimatedOpacity(
                 duration: Duration(seconds: 2),
                 opacity: is1Visible ? 1 : 0,
                 onEnd: () async {
-                  final dialog = Get.dialog(
+                  Get.dialog(
                     AlertDialog(
                       content: Container(
                         height: 60,

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/constant.dart';
@@ -10,8 +9,6 @@ import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
 import 'package:jdih_mobile_flutter/models/instansi_model.dart';
 import 'package:jdih_mobile_flutter/models/response_model.dart';
 import 'package:jdih_mobile_flutter/utils/dummy.dart';
-
-import '../models/artikel_model.dart';
 
 class DetailInstansiController extends GetxController {
   final server = Get.find<HttpServer>();
@@ -77,7 +74,7 @@ class DetailInstansiController extends GetxController {
     required String filterField,
   }) async {
     isLoading.value = true;
-    final dialog = Get.dialog(
+    Get.dialog(
       AlertDialog(
         content: Container(
           height: 60,

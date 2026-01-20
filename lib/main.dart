@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/date_symbol_data_file.dart';
+
 import 'package:jdih_mobile_flutter/bottom_nav_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/artikel_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/berita_controller.dart';
@@ -17,12 +17,12 @@ import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/shared_pref_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/offline_controller.dart';
 import 'package:jdih_mobile_flutter/splash_screen_simple.dart';
-import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page.dart';
+
 import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page_static.dart';
 import 'package:jdih_mobile_flutter/utils/bookmark_service.dart';
 import 'package:jdih_mobile_flutter/utils/riwayat_service.dart';
 import 'package:jdih_mobile_flutter/utils/offline_service.dart';
-import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
+
 import 'package:jdih_mobile_flutter/splash_screen.dart';
 import 'package:jdih_mobile_flutter/utils/http_override.dart';
 import 'package:jdih_mobile_flutter/utils/shared_prefs.dart';
@@ -102,7 +102,6 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
 
     return Scaffold(
       backgroundColor: Colors.white,

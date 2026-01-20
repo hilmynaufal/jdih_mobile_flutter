@@ -8,8 +8,6 @@ import 'package:jdih_mobile_flutter/views/detail_statis_page.dart';
 import 'coming_soon_page.dart';
 
 class HeaderWidget extends StatelessWidget {
-  HeaderWidget({super.key, required this.theme});
-
   final controller = Get.find<DokumenController>();
 
   final List<Function()> onTapMenu = List.generate(10, (index) {
@@ -20,13 +18,14 @@ class HeaderWidget extends StatelessWidget {
 
   final ThemeData theme;
 
-  String buildType = 'shrink';
+  final String buildType;
 
-  HeaderWidget.buildExpanded({super.key, required this.theme}) {
-    buildType = 'expand';
-  }
+  HeaderWidget({super.key, required this.theme}) : buildType = 'shrink';
 
-  List<String> titles = [
+  HeaderWidget.buildExpanded({super.key, required this.theme})
+    : buildType = 'expand';
+
+  final List<String> titles = [
     'Dasar Hukum',
     'Visi dan Misi',
     'Struktur Organisasi',
@@ -39,7 +38,7 @@ class HeaderWidget extends StatelessWidget {
     'FAQ',
   ];
 
-  List<String> titlesExpanded = [
+  final List<String> titlesExpanded = [
     'Dasar Hukum',
     'Visi dan Misi',
     'Struktur Organisasi',
@@ -52,7 +51,7 @@ class HeaderWidget extends StatelessWidget {
     'FAQ',
   ];
 
-  List<String> subtitleExpanded = [
+  final List<String> subtitleExpanded = [
     'Dasar hukum yang menjadi landasan dalam pengelolaan JDIH Kabupaten Bandung',
     'Visi dan misi JDIH Kabupaten Bandung',
     'Struktur organisasi JDIH Kabupaten Bandung',
@@ -65,7 +64,7 @@ class HeaderWidget extends StatelessWidget {
     'FAQ JDIH Kabupaten Bandung',
   ];
 
-  List<IconData> icons = [
+  final List<IconData> icons = [
     Icons.gavel, // Dasar Hukum
     Icons.visibility, // Visi dan Misi
     Icons.account_tree, // Struktur Organisasi

@@ -3,21 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
-import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
+
 import 'package:jdih_mobile_flutter/views/simple_page.dart';
 
 class JumlahWidget extends StatelessWidget {
-  JumlahWidget({super.key, required this.textTheme});
-
+  final String buildType;
   final dokumenController = Get.find<DokumenController>();
-
   final TextTheme textTheme;
 
-  String buildType = 'scroll';
+  JumlahWidget({super.key, required this.textTheme}) : buildType = 'scroll';
 
-  JumlahWidget.buildWithGrid({required this.textTheme, super.key}) {
-    buildType = 'grid';
-  }
+  JumlahWidget.buildWithGrid({required this.textTheme, super.key})
+    : buildType = 'grid';
 
   Widget buildGrid() {
     return Obx(() {

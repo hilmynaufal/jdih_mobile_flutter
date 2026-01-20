@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/controllers/shared_pref_controller.dart';
 import 'package:jdih_mobile_flutter/http_server.dart';
-import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page.dart';
+
 import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page_static.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -171,7 +171,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     duration: Duration(seconds: 1),
                     opacity: is6Visible ? 1 : 0,
                     onEnd: () async {
-                      final dialog = Get.dialog(
+                      Get.dialog(
                         AlertDialog(
                           content: Container(
                             height: 60,

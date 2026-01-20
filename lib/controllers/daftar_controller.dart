@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
+
 import 'package:jdih_mobile_flutter/http_server.dart';
 import 'package:jdih_mobile_flutter/models/login_model.dart';
 import 'package:jdih_mobile_flutter/models/response_model.dart';
@@ -116,10 +116,7 @@ class DaftarController extends GetxController {
         // Get.find<SharedPrefs>().login(userModel, userModel.idUser ?? "");
 
         //login again
-        final idUser = await login(
-          onSuccess: onSuccess,
-          onNotFound: (String error) {},
-        );
+        await login(onSuccess: onSuccess, onNotFound: (String error) {});
 
         // onSuccess(responseModel.message ?? "");
 

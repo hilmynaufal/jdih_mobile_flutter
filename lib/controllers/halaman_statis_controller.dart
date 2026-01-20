@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart';
@@ -55,7 +54,14 @@ class HalamanStatisController extends GetxController {
     final extension = model.gambar!.toLowerCase().split('.').last;
     if (extension == 'pdf') {
       fileType.value = 'pdf';
-    } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].contains(extension)) {
+    } else if ([
+      'jpg',
+      'jpeg',
+      'png',
+      'gif',
+      'bmp',
+      'webp',
+    ].contains(extension)) {
       fileType.value = 'image';
     } else {
       fileType.value = 'unknown';
@@ -87,7 +93,6 @@ class HalamanStatisController extends GetxController {
 
     if (status.isGranted) {
       try {
-        final now = DateTime.now();
         final taskId = await FlutterDownloader.enqueue(
           url: newUrl,
           savedDir: path,

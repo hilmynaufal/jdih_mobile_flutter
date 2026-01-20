@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:jdih_mobile_flutter/constant.dart';
+
 // import 'package:pramuka_bandungkab/constant.dart';
 // import 'package:pramuka_bandungkab/models/image_model.dart';
 

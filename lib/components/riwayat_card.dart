@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import '../models/riwayat_dokumen_model.dart';
 import '../utils/datetime_parse.dart';
 
@@ -20,7 +20,7 @@ class RiwayatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    
+
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -29,18 +29,18 @@ class RiwayatCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade50,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    FontAwesomeIcons.filePdf,
-                    color: Colors.blue.shade600,
-                    size: 40,
-                  ),
-                ),
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                FontAwesomeIcons.filePdf,
+                color: Colors.blue.shade600,
+                size: 40,
+              ),
+            ),
             SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -91,26 +91,25 @@ class RiwayatCard extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      
                     ],
                   ),
                 ],
               ),
             ),
-          // Tombol hapus
-              if (onDelete != null)
-                IconButton(
-                  onPressed: onDelete,
-                  icon: Icon(
-                    Icons.delete_outline,
-                    color: Colors.red.shade400,
-                    size: 20,
-                  ),
-                  tooltip: 'Hapus dari riwayat',
+            // Tombol hapus
+            if (onDelete != null)
+              IconButton(
+                onPressed: onDelete,
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: Colors.red.shade400,
+                  size: 20,
                 ),
+                tooltip: 'Hapus dari riwayat',
+              ),
           ],
         ),
       ),
     );
   }
-} 
+}

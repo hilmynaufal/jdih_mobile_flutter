@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
 
 class HttpServer extends GetxController {
   final apiUrl = "https://jdih.bandungkab.go.id/".obs;

@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/http_server.dart';
-import 'package:jdih_mobile_flutter/models/category_model.dart';
-import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
+
 import 'package:jdih_mobile_flutter/models/response_model.dart';
 import 'package:jdih_mobile_flutter/models/riwayat_layanan_model.dart';
-import 'package:jdih_mobile_flutter/utils/dummy.dart';
+
 import 'package:jdih_mobile_flutter/utils/shared_prefs.dart';
 
 class LayananController extends GetxController {

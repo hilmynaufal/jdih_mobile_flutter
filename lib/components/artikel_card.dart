@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
-import 'package:jdih_mobile_flutter/constant.dart';
-import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
+
 import 'package:jdih_mobile_flutter/http_server.dart';
 import 'package:jdih_mobile_flutter/models/artikel_model.dart';
-import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
+
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_artikel_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class ArtikelCard extends StatelessWidget {
   const ArtikelCard({
@@ -44,9 +42,15 @@ class ArtikelCard extends StatelessWidget {
                       ) ??
                       "",
                   loadingBuilder: (context, child, loadingProgress) {
-                    return Skeletonizer(
-                      enabled: loadingProgress != null,
-                      child: child,
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value:
+                            loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                      ),
                     );
                   },
                   fit: BoxFit.cover,

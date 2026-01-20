@@ -1,4 +1,4 @@
-package com.diskominfo.jdih_mobile_flutter
+package com.diskominfo.jdih_setda
 
 import io.flutter.embedding.android.FlutterActivity
 

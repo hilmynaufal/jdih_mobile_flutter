@@ -92,33 +92,25 @@ class DokumenInformationCard extends StatelessWidget {
 
     log(status.toString());
 
-    if (true) {
-      try {
-        final now = DateTime.now();
-        final taskId = await FlutterDownloader.enqueue(
-          url: newUrl,
-          savedDir: "/storage/emulated/0/Download",
-          fileName: "${dokumen.namaDokumen}_${now.millisecondsSinceEpoch}.pdf",
-          saveInPublicStorage: true,
-          showNotification: true,
-          openFileFromNotification: true,
-        );
-        Get.showSnackbar(
-          SnackbarUtils.successSnackbar(
-            text: "Download dimulai",
-            title: 'Sukses',
-          ),
-        );
-        print('Download ID: $taskId');
-      } catch (e) {
-        Get.showSnackbar(SnackbarUtils.errorSnackbar(text: e.toString()));
-      }
-    } else {
+    try {
+      final now = DateTime.now();
+      final taskId = await FlutterDownloader.enqueue(
+        url: newUrl,
+        savedDir: "/storage/emulated/0/Download",
+        fileName: "${dokumen.namaDokumen}_${now.millisecondsSinceEpoch}.pdf",
+        saveInPublicStorage: true,
+        showNotification: true,
+        openFileFromNotification: true,
+      );
       Get.showSnackbar(
-        SnackbarUtils.errorSnackbar(
-          text: "Izin penyimpanan diperlukan untuk mengunduh file.",
+        SnackbarUtils.successSnackbar(
+          text: "Download dimulai",
+          title: 'Sukses',
         ),
       );
+      print('Download ID: $taskId');
+    } catch (e) {
+      Get.showSnackbar(SnackbarUtils.errorSnackbar(text: e.toString()));
     }
   }
 
@@ -258,9 +250,14 @@ class DokumenInformationCard extends StatelessWidget {
                   // Tombol Simpan Offline
                   Obx(() {
                     final dokumenId = dokumen.id ?? "";
-                    final isOffline = offlineController.isDokumenOffline(dokumenId);
-                    final isDownloading = offlineController.isDokumenDownloading(dokumenId);
-                    final progress = offlineController.getDownloadProgress(dokumenId);
+                    final isOffline = offlineController.isDokumenOffline(
+                      dokumenId,
+                    );
+                    final isDownloading = offlineController
+                        .isDokumenDownloading(dokumenId);
+                    final progress = offlineController.getDownloadProgress(
+                      dokumenId,
+                    );
 
                     if (isDownloading) {
                       // Sedang download - tampilkan progress
@@ -282,9 +279,15 @@ class DokumenInformationCard extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 // Ambil dokumen offline dan buka dari local storage
-                                final offlineDokumen = offlineController.getDokumenOffline(dokumenId);
-                                if (offlineDokumen != null && offlineDokumen.localFilePath != null) {
-                                  Get.to(() => PdfViewPage(path: offlineDokumen.localFilePath!));
+                                final offlineDokumen = offlineController
+                                    .getDokumenOffline(dokumenId);
+                                if (offlineDokumen != null &&
+                                    offlineDokumen.localFilePath != null) {
+                                  Get.to(
+                                    () => PdfViewPage(
+                                      path: offlineDokumen.localFilePath!,
+                                    ),
+                                  );
                                 } else {
                                   Get.showSnackbar(
                                     SnackbarUtils.errorSnackbar(
@@ -323,7 +326,9 @@ class DokumenInformationCard extends StatelessWidget {
                               final confirm = await Get.dialog<bool>(
                                 AlertDialog(
                                   title: Text("Hapus Dokumen Offline?"),
-                                  content: Text("Dokumen akan dihapus dari penyimpanan offline. Anda bisa menyimpannya lagi nanti."),
+                                  content: Text(
+                                    "Dokumen akan dihapus dari penyimpanan offline. Anda bisa menyimpannya lagi nanti.",
+                                  ),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Get.back(result: false),
@@ -331,14 +336,19 @@ class DokumenInformationCard extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () => Get.back(result: true),
-                                      child: Text("Hapus", style: TextStyle(color: Colors.red)),
+                                      child: Text(
+                                        "Hapus",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
                                     ),
                                   ],
                                 ),
                               );
 
                               if (confirm == true) {
-                                await offlineController.hapusDokumenOffline(dokumenId);
+                                await offlineController.hapusDokumenOffline(
+                                  dokumenId,
+                                );
                                 Get.showSnackbar(
                                   SnackbarUtils.successSnackbar(
                                     text: "Dokumen offline berhasil dihapus",
@@ -350,7 +360,10 @@ class DokumenInformationCard extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
                               foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                               minimumSize: Size(0, 0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -373,12 +386,14 @@ class DokumenInformationCard extends StatelessWidget {
                             return;
                           }
 
-                          final fileUrl = "${Get.find<HttpServer>().apiUrl}/${dokumen.pathPeraturan}";
+                          final fileUrl =
+                              "${Get.find<HttpServer>().apiUrl}/${dokumen.pathPeraturan}";
 
-                          final success = await offlineController.simpanDokumenOffline(
-                            dokumen: dokumen,
-                            fileUrl: fileUrl,
-                          );
+                          final success = await offlineController
+                              .simpanDokumenOffline(
+                                dokumen: dokumen,
+                                fileUrl: fileUrl,
+                              );
 
                           if (success) {
                             Get.showSnackbar(

@@ -3,8 +3,7 @@ import 'dart:convert';
 // import 'package:beladiri_flutter/models/login_result_model.dart';
 // import 'package:beladiri_flutter/service/http_service.dart';
 import 'package:get/get.dart';
-import 'package:jdih_mobile_flutter/http_server.dart';
-import 'package:jdih_mobile_flutter/models/login_model.dart';
+
 import 'package:jdih_mobile_flutter/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

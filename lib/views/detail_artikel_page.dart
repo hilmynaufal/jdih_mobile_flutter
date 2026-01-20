@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:jdih_mobile_flutter/constant.dart';
+
 import 'package:jdih_mobile_flutter/http_server.dart';
 import 'package:jdih_mobile_flutter/models/artikel_model.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
@@ -25,7 +25,6 @@ class DetailArtikelPage extends StatelessWidget {
   final bool isStatic;
 
   Widget buildWidget(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -187,7 +186,6 @@ class DetailArtikelPage extends StatelessWidget {
   }
 
   Widget buildWidgetStatic(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

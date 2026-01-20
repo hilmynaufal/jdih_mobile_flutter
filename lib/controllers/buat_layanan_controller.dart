@@ -6,13 +6,9 @@ import 'package:get/get.dart';
 
 import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
 import 'package:jdih_mobile_flutter/http_server.dart';
-import 'package:jdih_mobile_flutter/models/desa_model.dart';
-import 'package:jdih_mobile_flutter/models/education_model.dart';
-import 'package:jdih_mobile_flutter/models/gender_model.dart';
-import 'package:jdih_mobile_flutter/models/kecamatan_model.dart';
+
 import 'package:jdih_mobile_flutter/models/response_model.dart';
 import 'package:jdih_mobile_flutter/models/user_model.dart';
-import 'package:jdih_mobile_flutter/models/work_model.dart';
 import 'package:jdih_mobile_flutter/utils/shared_prefs.dart';
 import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
 

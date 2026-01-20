@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/controllers/buat_layanan_controller.dart';
-import 'package:jdih_mobile_flutter/controllers/profile_controller.dart';
-import 'package:jdih_mobile_flutter/models/desa_model.dart';
-import 'package:jdih_mobile_flutter/models/education_model.dart';
-import 'package:jdih_mobile_flutter/models/gender_model.dart';
-import 'package:jdih_mobile_flutter/models/kecamatan_model.dart';
-import 'package:jdih_mobile_flutter/models/work_model.dart';
-import 'package:jdih_mobile_flutter/simple_list_bottomsheet.dart';
-import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
+
 import 'package:jdih_mobile_flutter/utils/shared_prefs.dart';
 import 'package:jdih_mobile_flutter/utils/simple_multicolored_line.dart';
 import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
@@ -30,7 +23,6 @@ class BuatLayananPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
 
     return Scaffold(
       appBar: AppBar(

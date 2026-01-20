@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/bottom_nav_controller.dart';
 import 'package:jdih_mobile_flutter/utils/shared_prefs.dart';
-import 'package:jdih_mobile_flutter/views/coming_soon_page.dart';
+
 import 'package:jdih_mobile_flutter/views/edit_profile_screen.dart';
 import 'package:jdih_mobile_flutter/views/kebijakan_privasi_page.dart';
 
@@ -27,7 +27,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
 
     return Scaffold(
       backgroundColor: Colors.white,

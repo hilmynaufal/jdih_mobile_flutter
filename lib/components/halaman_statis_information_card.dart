@@ -40,33 +40,25 @@ class HalamanStatisInformationCard extends StatelessWidget {
 
     log(status.toString());
 
-    if (true) {
-      try {
-        final now = DateTime.now();
-        final taskId = await FlutterDownloader.enqueue(
-          url: newUrl,
-          savedDir: "/storage/emulated/0/Download",
-          fileName: "${model.judul}_${now.millisecondsSinceEpoch}.pdf",
-          saveInPublicStorage: true,
-          showNotification: true,
-          openFileFromNotification: true,
-        );
-        Get.showSnackbar(
-          SnackbarUtils.successSnackbar(
-            text: "Download dimulai",
-            title: 'Sukses',
-          ),
-        );
-        log('Download ID: $taskId');
-      } catch (e) {
-        Get.showSnackbar(SnackbarUtils.errorSnackbar(text: e.toString()));
-      }
-    } else {
+    try {
+      final now = DateTime.now();
+      final taskId = await FlutterDownloader.enqueue(
+        url: newUrl,
+        savedDir: "/storage/emulated/0/Download",
+        fileName: "${model.judul}_${now.millisecondsSinceEpoch}.pdf",
+        saveInPublicStorage: true,
+        showNotification: true,
+        openFileFromNotification: true,
+      );
       Get.showSnackbar(
-        SnackbarUtils.errorSnackbar(
-          text: "Izin penyimpanan diperlukan untuk mengunduh file.",
+        SnackbarUtils.successSnackbar(
+          text: "Download dimulai",
+          title: 'Sukses',
         ),
       );
+      log('Download ID: $taskId');
+    } catch (e) {
+      Get.showSnackbar(SnackbarUtils.errorSnackbar(text: e.toString()));
     }
   }
 

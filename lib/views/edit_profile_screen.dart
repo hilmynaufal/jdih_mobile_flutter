@@ -6,7 +6,6 @@
 // import 'package:beladiri_flutter/utils/shared_prefs.dart';
 // import 'package:beladiri_flutter/widgets/item_pesan.dart';
 // import 'package:beladiri_flutter/widgets/main_app_bar.dart';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ import 'package:jdih_mobile_flutter/models/desa_model.dart';
 import 'package:jdih_mobile_flutter/models/education_model.dart';
 import 'package:jdih_mobile_flutter/models/gender_model.dart';
 import 'package:jdih_mobile_flutter/models/kecamatan_model.dart';
-import 'package:jdih_mobile_flutter/models/user_model.dart';
+
 import 'package:jdih_mobile_flutter/models/work_model.dart';
 import 'package:jdih_mobile_flutter/simple_list_bottomsheet.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
@@ -51,7 +50,6 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
 
     return Scaffold(
       appBar: AppBar(

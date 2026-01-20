@@ -23,8 +23,6 @@ class DetailLayananPage extends AbstractMainDashboardPage {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return buildWidgetWithSliverAppBar(
       context,
       expandedAppBarHeight: 300,
@@ -462,7 +460,6 @@ class DetailLayananPage extends AbstractMainDashboardPage {
   }
 
   Widget suratBelumLengkapTrackerWidget() {
-    final theme = Get.theme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -508,7 +505,6 @@ class DetailLayananPage extends AbstractMainDashboardPage {
   }
 
   Widget statusTrackerWidget() {
-    final theme = Get.theme;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(

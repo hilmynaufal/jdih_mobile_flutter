@@ -1,17 +1,11 @@
-import 'package:choice/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jdih_mobile_flutter/components/artikel_card.dart';
+
 import 'package:jdih_mobile_flutter/components/berita_card.dart';
-import 'package:jdih_mobile_flutter/components/dokumen_card.dart';
-import 'package:jdih_mobile_flutter/constant.dart';
-import 'package:jdih_mobile_flutter/controllers/artikel_controller.dart';
+
 import 'package:jdih_mobile_flutter/controllers/berita_controller.dart';
-import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
-import 'package:jdih_mobile_flutter/views/detail_artikel_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class BeritaPage extends StatelessWidget {
   BeritaPage({super.key});
@@ -61,21 +55,18 @@ class BeritaPage extends StatelessWidget {
           SizedBox(height: 8),
           Expanded(
             child: Obx(() {
-              return Skeletonizer(
-                enabled: controller.beritas.isEmpty,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: controller.beritas.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: BeritaCard(
-                        berita: controller.beritas[index],
-                        textTheme: textTheme,
-                      ),
-                    );
-                  },
-                ),
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemCount: controller.beritas.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: BeritaCard(
+                      berita: controller.beritas[index],
+                      textTheme: textTheme,
+                    ),
+                  );
+                },
               );
             }),
           ),

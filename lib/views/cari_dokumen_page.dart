@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/cari_bottomsheet.dart';
-import 'package:jdih_mobile_flutter/category_bottomsheet.dart';
+
 import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
 import 'package:jdih_mobile_flutter/jumlah_widget.dart';
-import 'package:jdih_mobile_flutter/login_bottomsheet.dart';
-import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
-import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
-import 'package:jdih_mobile_flutter/views/simple_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
-import '../components/dokumen_card.dart';
+import 'package:jdih_mobile_flutter/views/simple_page.dart';
 
 class CariDokumenPage extends StatelessWidget {
   CariDokumenPage({super.key, required this.title});

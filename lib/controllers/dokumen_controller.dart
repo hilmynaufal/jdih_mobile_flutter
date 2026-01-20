@@ -37,15 +37,13 @@ class DokumenController extends GetxController {
   ) async {
     isLoading.value = true;
     final response = await server.getRequest(
-      'api/Tampil_hukum/search?keyword=$keyword&tahun=$tahun&kategori=1&nomor=$no',
+      'api/Tampil_hukum/search?keyword=$keyword&tahun=$tahun&kategori=$kategori&nomor=$no',
     );
 
     log("keyword: $keyword");
     log("tahun: $tahun");
     log("kategori: $kategori");
     log("no: $no");
-
-    log("response: $response");
     final jsonData = jsonDecode(response);
 
     List<DetailDokumenModel> categoryList;
@@ -84,24 +82,66 @@ class DokumenController extends GetxController {
   }
 
   Future<void> getJdihKategori() async {
-    log("resonse");
     isLoading.value = true;
-    log("response");
-    final response = await server.getRequest('api/Tampil_hukum/rekapjdih');
-    final jsonData = jsonDecode(response);
+    try {
+      // Fetch both endpoints concurrently
+      // log("getJdihKategori");
+      final responses = await Future.wait([
+        server.getRequest('api/Tampil_hukum/rekapjdih'),
+        server.getRequest('api/Tampil_hukum/kategorihukum'),
+      ]);
 
-    List<KategoriDokumenModel> categoryList;
-    if (response.isEmpty) {
-      categoryList = [];
-      // log("response");
-    } else {
-      categoryList = List<KategoriDokumenModel>.from(
-        jsonData.map((x) => KategoriDokumenModel.fromMap(x)),
-      );
+      final rekapResponse = responses[0];
+      final kategoriResponse = responses[1];
+
+      // log(rekapResponse.toString());
+      // log(kategoriResponse.toString());
+
+      final rekapJson = jsonDecode(rekapResponse);
+      final kategoriJson = jsonDecode(kategoriResponse);
+
+      List<KategoriDokumenModel> rekapList = [];
+      if (rekapResponse.isNotEmpty) {
+        rekapList = List<KategoriDokumenModel>.from(
+          rekapJson.map((x) => KategoriDokumenModel.fromMap(x)),
+        );
+      }
+
+      List<dynamic> kategoriData = [];
+      if (kategoriResponse.isNotEmpty && kategoriJson['data'] != null) {
+        kategoriData = kategoriJson['data'];
+      }
+
+      // Create a map for quick lookup of jenis_id by jenis_keterangan from kategoriData
+      // Assuming 'jenis_keterangan' is the common key as per request
+      final Map<String, String> idMap = {};
+      for (var item in kategoriData) {
+        if (item['jenis_keterangan'] != null) {
+          idMap[item['jenis_keterangan']] = item['jenis_id'].toString();
+        }
+      }
+
+      // Merge data: Update rekapList items with jenis_id from idMap
+      final mergedList =
+          rekapList.map((item) {
+            final id = idMap[item.jenisKeterangan] ?? item.jenisId;
+            return KategoriDokumenModel(
+              jenisId: id,
+              jenisNama: item.jenisNama,
+              jenisLevel: item.jenisLevel,
+              jenisKeterangan: item.jenisKeterangan,
+              jml: item.jml,
+            );
+          }).toList();
+
+      // log(mergedList.toString());
+      kategori.value = mergedList;
+    } catch (e) {
+      log("Error fetching categories: $e");
+      kategori.value = [];
+    } finally {
+      isLoading.value = false;
     }
-
-    kategori.value = categoryList;
-    isLoading.value = false;
   }
 
   Future<void> getCategory({
@@ -162,7 +202,7 @@ class DokumenController extends GetxController {
     required String filterField,
   }) async {
     isLoading.value = true;
-    final dialog = Get.dialog(
+    Get.dialog(
       AlertDialog(
         content: Container(
           height: 60,

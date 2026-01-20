@@ -6,8 +6,6 @@ import 'package:jdih_mobile_flutter/http_server.dart';
 import 'package:jdih_mobile_flutter/models/jdih_models/berita_model.dart';
 import 'package:jdih_mobile_flutter/models/response_model.dart';
 
-import '../models/artikel_model.dart';
-
 class BeritaController {
   final server = Get.find<HttpServer>();
   final beritas = RxList<BeritaModel>();
@@ -22,7 +20,7 @@ class BeritaController {
       final response = await server.getRequest('api/Tampil_hukum/berita');
       final jsonData = jsonDecode(response);
 
-      // log("test: ${jsonData.toString()}");
+      log("test: ${jsonData.toString()}");
 
       final responseModel = ResponseModel.fromBeritaModel(jsonData);
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:jdih_mobile_flutter/controllers/dokumen_controller.dart';
-import 'package:jdih_mobile_flutter/models/category_model.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class SimpleListBottomsheet extends StatelessWidget {
@@ -19,9 +17,6 @@ class SimpleListBottomsheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
       maxChildSize: 0.9,

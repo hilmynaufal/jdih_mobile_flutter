@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:jdih_mobile_flutter/models/category_model.dart';
-import 'package:jdih_mobile_flutter/models/stat_model.dart';
 
 class Dummy {
   static List<CategoryModel> getCategoryModelDummy() {
@@ -253,10 +251,6 @@ class Dummy {
     };
 
     return string;
-
-    final categoryModels = StatModel.fromMap(string);
-
-    // return categoryModels;
   }
 
   static String getFileSizeString({required int bytes, int decimals = 0}) {

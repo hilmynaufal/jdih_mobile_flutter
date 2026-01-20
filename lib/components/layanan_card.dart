@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/models/riwayat_layanan_model.dart';
 import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
 import 'package:jdih_mobile_flutter/views/detail_layanan_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class LayananCard extends StatelessWidget {
   const LayananCard({super.key, required this.layanan});

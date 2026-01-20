@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/controllers/bookmark_controller.dart';
 import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import '../components/bookmark_card.dart';
 import '../models/bookmark_dokumen_model.dart';
@@ -18,9 +17,6 @@ class BookmarkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -76,23 +72,7 @@ class BookmarkPage extends StatelessWidget {
   }
 
   Widget _buildLoadingState() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return Skeletonizer(
-          enabled: true,
-          child: Card(
-            margin: const EdgeInsets.only(bottom: 8),
-            child: ListTile(
-              leading: CircleAvatar(),
-              title: Text('Loading...'),
-              subtitle: Text('Loading...'),
-            ),
-          ),
-        );
-      },
-    );
+    return Center(child: CircularProgressIndicator());
   }
 
   Widget _buildEmptyState() {
@@ -100,11 +80,7 @@ class BookmarkPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.bookmark_border,
-            size: 64,
-            color: Colors.grey.shade400,
-          ),
+          Icon(Icons.bookmark_border, size: 64, color: Colors.grey.shade400),
           const SizedBox(height: 16),
           Text(
             'Belum ada bookmark',
@@ -196,12 +172,11 @@ class BookmarkPage extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         title: Text('Hapus Bookmark'),
-        content: Text('Apakah Anda yakin ingin menghapus dokumen ini dari bookmark?'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus dokumen ini dari bookmark?',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Batal'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Batal')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -220,10 +195,7 @@ class BookmarkPage extends StatelessWidget {
         title: Text('Hapus Semua Bookmark'),
         content: Text('Apakah Anda yakin ingin menghapus semua bookmark?'),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Batal'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Batal')),
           TextButton(
             onPressed: () {
               Get.back();

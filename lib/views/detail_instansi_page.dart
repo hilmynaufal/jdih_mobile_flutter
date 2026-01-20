@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jdih_mobile_flutter/category_bottomsheet.dart';
-import 'package:jdih_mobile_flutter/components/dokumen_card.dart';
+
 import 'package:jdih_mobile_flutter/constant.dart';
 import 'package:jdih_mobile_flutter/controllers/detail_instansi_controller.dart';
-import 'package:jdih_mobile_flutter/controllers/instansi_controller.dart';
+
 import 'package:jdih_mobile_flutter/models/instansi_model.dart';
-import 'package:jdih_mobile_flutter/views/detail_dokumen_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class DetailInstansiPage extends StatefulWidget {
   DetailInstansiPage({super.key, required this.instansi});

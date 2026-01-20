@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jdih_mobile_flutter/components/artikel_card.dart';
-import 'package:jdih_mobile_flutter/components/dokumen_card.dart';
+
 import 'package:jdih_mobile_flutter/constant.dart';
 import 'package:jdih_mobile_flutter/controllers/artikel_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/home_controller.dart';
 import 'package:jdih_mobile_flutter/views/detail_artikel_page.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class ArtikelPage extends StatelessWidget {
   ArtikelPage({super.key});
@@ -37,79 +36,76 @@ class ArtikelPage extends StatelessWidget {
           children: [
             GetX<HomeController>(
               builder: (homeController) {
-                return Skeletonizer(
-                  enabled: homeController.beritaTerbaru.isEmpty,
-                  child: SizedBox(
-                    height: 260,
-                    child: ListView.builder(
-                      physics: PageScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          homeController
-                              .beritaTerbaru
-                              .length, // Sesuaikan dengan jumlah item yang ingin ditampilkan
-                      itemBuilder: (context, index) {
-                        final curentArtikel = homeController.beritaTerbaru
-                            .elementAt(index);
-                        return InkWell(
-                          onTap: () {
-                            Get.to(
-                              () => DetailArtikelPage(
-                                artikel: homeController.beritaTerbaru.elementAt(
-                                  index,
+                return SizedBox(
+                  height: 260,
+                  child: ListView.builder(
+                    physics: PageScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount:
+                        homeController
+                            .beritaTerbaru
+                            .length, // Sesuaikan dengan jumlah item yang ingin ditampilkan
+                    itemBuilder: (context, index) {
+                      final curentArtikel = homeController.beritaTerbaru
+                          .elementAt(index);
+                      return InkWell(
+                        onTap: () {
+                          Get.to(
+                            () => DetailArtikelPage(
+                              artikel: homeController.beritaTerbaru.elementAt(
+                                index,
+                              ),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
+                          width: Get.width,
+                          child: Stack(
+                            children: [
+                              Container(
+                                clipBehavior: Clip.antiAlias,
+                                width: double.infinity,
+                                height: 260,
+                                decoration: BoxDecoration(
+                                  color: theme.primaryColor,
+                                  // borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Image.network(
+                                  curentArtikel.imageArticle!,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            );
-                          },
-                          child: SizedBox(
-                            width: Get.width,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  clipBehavior: Clip.antiAlias,
-                                  width: double.infinity,
-                                  height: 260,
-                                  decoration: BoxDecoration(
-                                    color: theme.primaryColor,
-                                    // borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Image.network(
-                                    curentArtikel.imageArticle!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.3),
-                                        // borderRadius: BorderRadius.only(
-                                        //     bottomRight: Radius.circular(10),
-                                        //     bottomLeft: Radius.circular(10))
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16,
-                                        vertical: 16,
-                                      ),
-                                      child: Text(
-                                        curentArtikel.namaArtikel ?? "",
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.3),
+                                      // borderRadius: BorderRadius.only(
+                                      //     bottomRight: Radius.circular(10),
+                                      //     bottomLeft: Radius.circular(10))
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 16,
+                                    ),
+                                    child: Text(
+                                      curentArtikel.namaArtikel ?? "",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 );
               },
@@ -252,19 +248,16 @@ class ArtikelPage extends StatelessWidget {
                   //   height: 8,
                   // ),
                   Obx(() {
-                    return Skeletonizer(
-                      enabled: controller.beritas.isEmpty,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: controller.beritas.length,
-                        itemBuilder: (context, index) {
-                          return ArtikelCard(
-                            artikel: controller.beritas[index],
-                            textTheme: textTheme,
-                          );
-                        },
-                      ),
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.beritas.length,
+                      itemBuilder: (context, index) {
+                        return ArtikelCard(
+                          artikel: controller.beritas[index],
+                          textTheme: textTheme,
+                        );
+                      },
                     );
                   }),
                   SizedBox(height: 16),

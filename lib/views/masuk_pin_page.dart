@@ -1,11 +1,8 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pinput/pinput.dart';
+
 import 'package:jdih_mobile_flutter/controllers/login_controller.dart';
 import 'package:jdih_mobile_flutter/utils/simple_multicolored_line.dart';
 import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';

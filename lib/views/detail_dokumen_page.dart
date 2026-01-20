@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/controllers/bookmark_controller.dart';
 import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
-import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
+
 import 'package:jdih_mobile_flutter/models/jdih_models/detail_dokumen_model.dart';
-import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jdih_mobile_flutter/utils/dummy.dart';
+
 import 'package:jdih_mobile_flutter/utils/snackbar_utils.dart';
 
 import '../components/dokumen_information_card.dart';

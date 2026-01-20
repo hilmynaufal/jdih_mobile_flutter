@@ -3,20 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:jdih_mobile_flutter/components/halaman_statis_information_card.dart';
 import 'package:jdih_mobile_flutter/controllers/halaman_statis_controller.dart';
-import 'package:jdih_mobile_flutter/controllers/riwayat_controller.dart';
-import 'package:jdih_mobile_flutter/models/dokumen_model.dart';
-import 'package:jdih_mobile_flutter/models/jdih_models/detail_dokumen_model.dart';
-import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart';
-import 'package:jdih_mobile_flutter/utils/datetime_parse.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:jdih_mobile_flutter/utils/dummy.dart';
-import 'package:photo_view/photo_view.dart';
 
-import '../components/dokumen_information_card.dart';
+import 'package:jdih_mobile_flutter/models/jdih_models/halaman_statis_model.dart';
+
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:photo_view/photo_view.dart';
 
 class DetailStatisPage extends StatelessWidget {
   DetailStatisPage({super.key, required this.halamanStatisModel});
@@ -135,7 +131,9 @@ class DetailStatisPage extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: PhotoView(
-                          imageProvider: FileImage(File(controller.filePath.value!)),
+                          imageProvider: FileImage(
+                            File(controller.filePath.value!),
+                          ),
                           minScale: PhotoViewComputedScale.contained,
                           maxScale: PhotoViewComputedScale.covered * 2,
                           backgroundDecoration: BoxDecoration(

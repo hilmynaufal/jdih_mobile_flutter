@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,8 +51,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       final jsonData = jsonDecode(response);
 
       if (jsonData['status'] == true && jsonData['data'] != null) {
-        visitorStatistics.value =
-            VisitorStatisticsModel.fromMap(jsonData['data']);
+        visitorStatistics.value = VisitorStatisticsModel.fromMap(
+          jsonData['data'],
+        );
       }
     } catch (e) {
       print('Error fetching visitor statistics: $e');
@@ -62,14 +62,15 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> getHukumTerbaru() async {
     try {
-      final response = await server.getRequest('api/Tampil_hukum/hukum_terbaru');
+      final response = await server.getRequest(
+        'api/Tampil_hukum/hukum_terbaru',
+      );
       final jsonData = jsonDecode(response);
 
       if (jsonData['status'] == true && jsonData['data'] != null) {
         final List<dynamic> dataList = jsonData['data'];
-        hukumTerbaru.value = dataList
-            .map((item) => DetailDokumenModel.fromMap(item))
-            .toList();
+        hukumTerbaru.value =
+            dataList.map((item) => DetailDokumenModel.fromMap(item)).toList();
       }
     } catch (e) {
       print('Error fetching hukum terbaru: $e');
@@ -78,15 +79,15 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> getHukumPopuler() async {
     try {
-      final response =
-          await server.getRequest('api/Tampil_hukum/hukum_populer');
+      final response = await server.getRequest(
+        'api/Tampil_hukum/hukum_populer',
+      );
       final jsonData = jsonDecode(response);
 
       if (jsonData['status'] == true && jsonData['data'] != null) {
         final List<dynamic> dataList = jsonData['data'];
-        hukumPopuler.value = dataList
-            .map((item) => DetailDokumenModel.fromMap(item))
-            .toList();
+        hukumPopuler.value =
+            dataList.map((item) => DetailDokumenModel.fromMap(item)).toList();
       }
     } catch (e) {
       print('Error fetching hukum populer: $e');
@@ -95,8 +96,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<DetailDokumenModel?> getDetailDokumen(String id) async {
     try {
-      final response =
-          await server.getRequest('api/Tampil_hukum/detail/$id');
+      final response = await server.getRequest('api/Tampil_hukum/detail/$id');
       final jsonData = jsonDecode(response);
 
       if (jsonData['status'] == true && jsonData['data'] != null) {
