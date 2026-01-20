@@ -83,65 +83,61 @@ class DokumenController extends GetxController {
 
   Future<void> getJdihKategori() async {
     isLoading.value = true;
-    try {
-      // Fetch both endpoints concurrently
-      // log("getJdihKategori");
-      final responses = await Future.wait([
-        server.getRequest('api/Tampil_hukum/rekapjdih'),
-        server.getRequest('api/Tampil_hukum/kategorihukum'),
-      ]);
 
-      final rekapResponse = responses[0];
-      final kategoriResponse = responses[1];
+    // Fetch both endpoints concurrently
+    // log("getJdihKategori");
+    final responses = await Future.wait([
+      server.getRequest('api/Tampil_hukum/rekapjdih'),
+      server.getRequest('api/Tampil_hukum/kategorihukum'),
+    ]);
 
-      // log(rekapResponse.toString());
-      // log(kategoriResponse.toString());
+    final rekapResponse = responses[0];
+    final kategoriResponse = responses[1];
 
-      final rekapJson = jsonDecode(rekapResponse);
-      final kategoriJson = jsonDecode(kategoriResponse);
+    final rekapJson = jsonDecode(rekapResponse);
+    final kategoriJson = jsonDecode(kategoriResponse);
 
-      List<KategoriDokumenModel> rekapList = [];
-      if (rekapResponse.isNotEmpty) {
-        rekapList = List<KategoriDokumenModel>.from(
-          rekapJson.map((x) => KategoriDokumenModel.fromMap(x)),
-        );
-      }
-
-      List<dynamic> kategoriData = [];
-      if (kategoriResponse.isNotEmpty && kategoriJson['data'] != null) {
-        kategoriData = kategoriJson['data'];
-      }
-
-      // Create a map for quick lookup of jenis_id by jenis_keterangan from kategoriData
-      // Assuming 'jenis_keterangan' is the common key as per request
-      final Map<String, String> idMap = {};
-      for (var item in kategoriData) {
-        if (item['jenis_keterangan'] != null) {
-          idMap[item['jenis_keterangan']] = item['jenis_id'].toString();
-        }
-      }
-
-      // Merge data: Update rekapList items with jenis_id from idMap
-      final mergedList =
-          rekapList.map((item) {
-            final id = idMap[item.jenisKeterangan] ?? item.jenisId;
-            return KategoriDokumenModel(
-              jenisId: id,
-              jenisNama: item.jenisNama,
-              jenisLevel: item.jenisLevel,
-              jenisKeterangan: item.jenisKeterangan,
-              jml: item.jml,
-            );
-          }).toList();
-
-      // log(mergedList.toString());
-      kategori.value = mergedList;
-    } catch (e) {
-      log("Error fetching categories: $e");
-      kategori.value = [];
-    } finally {
-      isLoading.value = false;
+    List<KategoriDokumenModel> rekapList = [];
+    if (rekapResponse.isNotEmpty) {
+      rekapList = List<KategoriDokumenModel>.from(
+        rekapJson.map((x) => KategoriDokumenModel.fromMap(x)),
+      );
     }
+
+    // log(rekapList.toString());
+
+    List<dynamic> kategoriData = [];
+    // log(kategoriJson.toString());
+    // log(kategoriResponse.toString());
+    if (kategoriResponse.isNotEmpty) {
+      kategoriData = kategoriJson;
+    }
+
+    // Create a map for quick lookup of jenis_id by jenis_keterangan from kategoriData
+    // Assuming 'jenis_keterangan' is the common key as per request
+    final Map<String, String> idMap = {};
+    for (var item in kategoriData) {
+      if (item['jenis_keterangan'] != null) {
+        idMap[item['jenis_keterangan']] = item['jenis_id'].toString();
+      }
+    }
+
+    // Merge data: Update rekapList items with jenis_id from idMap
+    final mergedList =
+        rekapList.map((item) {
+          final id = idMap[item.jenisKeterangan] ?? item.jenisId;
+          return KategoriDokumenModel(
+            jenisId: id,
+            jenisNama: item.jenisNama,
+            jenisLevel: item.jenisLevel,
+            jenisKeterangan: item.jenisKeterangan,
+            jml: item.jml,
+          );
+        }).toList();
+
+    // log(mergedList.toString());
+    kategori.value = mergedList;
+    isLoading.value = false;
   }
 
   Future<void> getCategory({

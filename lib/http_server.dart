@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class HttpServer extends GetxController {
-  final apiUrl = "https://jdih.bandungkab.go.id/".obs;
+  final apiUrl = "https://jdihdprd.bandungkab.go.id/".obs;
   // final apiTest = 0.obs;
 
   // Basic Auth credentials
