@@ -16,7 +16,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
         android:maxSdkVersion="29" />
     <application
-        android:label="JDIH Kabupaten Bandung"
+        android:label="JDIH DPRD Kabupaten Bandung"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">

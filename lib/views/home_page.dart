@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFFF),
+        backgroundColor: Color(0xFF045464),
         // forceMaterialTransparency: true,
         centerTitle: true,
         title: Image.asset("assets/logo.png", scale: 6),

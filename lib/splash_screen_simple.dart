@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreenSimple> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(child: Container(color: Color(0xFFFFFFFf))),
+          Positioned.fill(child: Container(color: Color(0xFF045464))),
           SafeArea(
             child: Center(
               child: AnimatedOpacity(
