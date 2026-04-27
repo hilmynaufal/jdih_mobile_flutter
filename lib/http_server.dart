@@ -4,17 +4,15 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class HttpServer extends GetxController {
-  final apiUrl = "https://jdihdprd.bandungkab.go.id/".obs;
+  final apiUrl = "https://itsajdih.bandungkab.go.id/".obs;
   // final apiTest = 0.obs;
 
-  // Basic Auth credentials
-  final String _username = "admin";
-  final String _password = "password_rahasia543";
+  // Bearer Token credentials
+  final String _token = "mobile_app_secret_key_12345";
 
-  // Helper method untuk generate Basic Auth header
-  String _getBasicAuthHeader() {
-    final credentials = base64Encode(utf8.encode('$_username:$_password'));
-    return 'Basic $credentials';
+  // Helper method untuk generate Bearer Auth header
+  String _getAuthHeader() {
+    return 'Bearer $_token';
   }
 
   Future<void> getApiUrl() async {
@@ -48,7 +46,7 @@ class HttpServer extends GetxController {
       Uri.parse("${apiUrl.value}$subdomain"),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': _getBasicAuthHeader(),
+        'Authorization': _getAuthHeader(),
       },
       body: jsonEncode(body),
     );
@@ -66,7 +64,7 @@ class HttpServer extends GetxController {
       Uri.parse("${apiUrl.value}$subdomain"),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': _getBasicAuthHeader(),
+        'Authorization': _getAuthHeader(),
       },
     );
 
@@ -88,7 +86,7 @@ class HttpServer extends GetxController {
       Uri.parse("${apiUrl.value}$subdomain"),
     );
 
-    request.headers['Authorization'] = _getBasicAuthHeader();
+    request.headers['Authorization'] = _getAuthHeader();
     request.fields.addAll(fields);
 
     final response = await request.send();
